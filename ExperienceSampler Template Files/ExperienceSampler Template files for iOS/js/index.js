@@ -561,12 +561,14 @@ sampleParticipant: function() {
 
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveDataLastPage:function() {
+// 	var storage = JSON.stringify(localStore);
+// 	var storage_save=JSON.parse(storage);
 //     $.ajax({
 //			//If you are using the google option, the type should be 'get'
 //			//If you are using the server option, the type should be 'post'
 //            type: 'post' or 'get',
 //            url: 'server url (i.e., url for where to send the data)',
-//            data: localStore,
+//            data: storage_save,
 //            crossDomain: true,
 //            success: function (result) {
 //            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
@@ -587,12 +589,14 @@ saveDataLastPage:function() {
 
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveData:function() {
+// 	var storage = JSON.stringify(localStore);
+// 	var storage_save=JSON.parse(storage);	
 //     $.ajax({
 //			//If you are using the google option, the type should be 'get'
 //			//If you are using the server option, the type should be 'post'
 //            type: 'post' or 'get',
 //            url: 'server url (i.e., url for where to send the data)',
-//            data: localStore,
+//            data: storage_save,
 //            crossDomain: true,
 //            success: function (result) {
 //            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
