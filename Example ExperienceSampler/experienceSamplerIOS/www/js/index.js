@@ -544,10 +544,12 @@ sampleParticipant: function() {
     app.saveData();
 },  
 saveData:function() {
+	var storage = JSON.stringify(localStore);
+	var storage_save=JSON.parse(storage);
     $.ajax({
            type: 'get',
            url: 'https://script.google.com/macros/s/AKfycbzzbp0437BkTqx95W9THF9JhWcydzn-K-FJTbwIHF23-S0JbDXG/exec',
-           data: localStore,
+           data: storage_save,
            crossDomain: true,
            success: function (result) {
            var pid = localStore.participant_id, snoozed = localStore.snoozed, 
@@ -561,11 +563,13 @@ saveData:function() {
            error: function (request, error) {console.log(error);},
            });
 },
-saveDataLastPage:function() {
+saveDataLastPage:function() {	
+	var storage = JSON.stringify(localStore);
+	var storage_save=JSON.parse(storage);
     $.ajax({
            type: 'get',
            url: 'https://script.google.com/macros/s/AKfycbzzbp0437BkTqx95W9THF9JhWcydzn-K-FJTbwIHF23-S0JbDXG/exec',
-           data: localStore,
+           data: storage_save,
            crossDomain: true,
            success: function (result) {	
            		var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
