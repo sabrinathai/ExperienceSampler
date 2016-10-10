@@ -1,0 +1,51 @@
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+header {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    font-family:Helvetica, Arial, sans-serif;
+	text-align:center;
+	font-size:2.00em;
+    height:100%;
+    margin:0px;
+    padding:0px;
+    width:100%;
+	color: #FFFFFF;
+}
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    background-color:#FFFFFF;
+    font-family:Helvetica, Arial, sans-serif;
+	text-align:center;
+	font-size:3.50em;
+    height:100%;
+    margin:0px;
+    padding:40px;
+    width:100%;
+	color: #002A5C;
+	a:link {color:#002A5C;}
+	a:visited {color:#008BB0;}
+	a:hover {color:#FFE498;}
+	a:active {color:#002A5C;}
+}
+
+p {
+	text-align:left;
+	font-size:0.80em;
+}
+
+#email {
+	text-align:center;
+	font-size:0.75em;
+}
+
+#warning {
+	font-size: 0.70em;
+	color:008BB0;
+}
