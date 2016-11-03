@@ -7,7 +7,7 @@ condition. This condition should be the number of questionnaires that participan
 record whether an email was sent (i.e., Email Sent) or whether compliance is met (i.e., Survey Completed) to the Compliance Google 
 spreadsheet. 
 
-##Script Explanation
+##The Script
 The compliance emailer consists of four sections. In the first section, you tell the script what each column in the Compliance 
 Spreadsheet represents. For example, you will tell the script that the second column is the participant’s name, `var name = column[1]`. 
 It is important to note that the column numbers in this section use zero-based character numbering. Thus, you have to subtract 1 
