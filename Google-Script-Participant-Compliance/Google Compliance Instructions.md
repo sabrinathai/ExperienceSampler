@@ -14,7 +14,7 @@ because they both use Google Script and can only interact with Google Sheets.
 
 ##Checking Compliance
 We have created a script using Google script to check participant’s compliance at the end of each day. The script can be downloaded 
-from this page (https://script.google.com/d/1I-Uo_phZEM94YYvjWMwZPi5hGG3V3YwBSm4yOabD4Q-t0bvntCiHNw-i/edit?usp=sharing). Below 
+from this page (https://script.google.com/d/1I-Uo_phZEM94YYvjWMwZPi5hGG3V3YwBSm4yOabD4Q-t0bvntCiHNw-i/edit?usp=sharing). You can also find it on GitHub (https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Checker.js). Below 
 we will outline how to implement the compliance checker. This script checks each participant’s data sheet and determines the number of 
 entirely completed questionnaires at the end of each day. The script will then record this to the Compliance Google spreadsheet. 
 
@@ -77,7 +77,7 @@ most appropriate trigger times based on the population of participants they are 
 ##Compliance Email Reminders
 Once you have determined the number of questionnaires each participant has completed, you may want to remind participants who have 
 completed fewer than acceptable. You can use our compliance emailer Google Script. You can copy and paste the script from this page 
-(https://script.google.com/d/1L2rEefLaftrDnZRVMosO7cuW5dAiAbmLzuDOcjHD9iOpgAGVCugLI_A3/edit?usp=sharing). Below we will outline 
+(https://script.google.com/d/1L2rEefLaftrDnZRVMosO7cuW5dAiAbmLzuDOcjHD9iOpgAGVCugLI_A3/edit?usp=sharing). You can also find it on Github on this page (https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Emailer.js). Below we will outline 
 how to implement the compliance emailer. This script checks will send an email to each participant if they do not meet a specific 
 condition. This condition should be the number of questionnaires that participants should complete each day. The script will then 
 record whether an email was sent (i.e., Email Sent) or whether compliance is met (i.e., Survey Completed) to the Compliance Google 
