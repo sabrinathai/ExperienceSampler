@@ -6,8 +6,10 @@ entirely completed questionnaires at the end of each day. The script will then r
 
 ##The Script
 Now, we will briefly describe what each of the functions within the script does so that you understand how the script works. The 
-compliance checker script performs two primary functions. The first function splices the variable name into its three components: 
-the unique key, the variable name, and the time stamp. The second function uses the unique key to determine how many questionnaires 
+compliance checker script performs two primary functions. 
+The first function splices the variable name into its three components: 
+the unique key, the variable name, and the time stamp. 
+The second function uses the unique key to determine how many questionnaires 
 the participant has completed on a given day and record this value in the compliance spreadsheet along with a date stamp of when the 
 responses were checked. This second function only includes completed questionnaires in this count. That is, if a participant does not 
 complete a questionnaire, it is not included in the day’s count. The script does this by looking a unique key that also has the tag 
