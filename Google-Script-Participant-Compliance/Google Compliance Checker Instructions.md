@@ -59,7 +59,8 @@ Next, you will have to set up the script.
     * The first one will splice the long variable string into a unique key, a variable name, and a timestamp. 
     * The second one will count the number of completed questionnaires. 
 
-To specify a time-based trigger:
+To specify the time-based triggers:
+
 1. First click on the clock icon that appears beside the play icon. 
 2. Click `Add a new trigger`, then select `spliceData` in the first dropdown menu and `Day timer` in the third menu, and `3am to 4am` in the last menu. 
 3. Create your second trigger by selecting Select `checkCompletedSurveys` in the first dropdown menu, `Day timer` in the third dropdown menu, and `4am to 5am` in the last dropdown menu. 
