@@ -1,7 +1,7 @@
-var splicedDataset = SpreadsheetApp.openById("1KLSJncOEYlIbq5BhOZqgOJQwrUhyXfIdD6qbKi6XDqA");
+var splicedDataset = SpreadsheetApp.openById("google sheet id"); //update with your spliced Dataset ID
 
 function spliceVariableName(){
-  var sheet = splicedDataset.getSheetByName('089'); //enter sheet name here. It should be the participant's ID number
+  var sheet = splicedDataset.getSheetByName('sheet name'); //enter sheet name here. It should be the participant's ID number
   var uniqueResponses = [], uniqueKeysArray = [], variableNames = [], variableNameTimestamp = [], 
       timestamp = [], responseLabel = [], splicedVariableName = [], lastRow = sheet.getLastRow(), 
       startColumn = sheet.getRange("e:e"); 
