@@ -7,7 +7,6 @@ function cleanData() {
     removeEmptyRows(sheet);
     completedTag(sheet);
     convertTimestamp(sheet);
-    onlyVariableNames(sheet);
     sortData(sheet);    
     Logger.log("I ran the for function");
   }
@@ -77,14 +76,6 @@ function convertTimestamp(sheet){
   }
   timestamps.setValues(convertedTimestampsArray);
   //Logger.log(convertedTimestampsArray);
-}
-
-function onlyVariableNames(sheet){
-  var lastCol = sheet.getLastColumn();
-  var lastRow = sheet.getLastRow();
-  var values = sheet.getRange(1,1,lastRow-1, lastCol).getValues();
-  var removedItems = values.remove(["participant","snoozed","notification","weekendDinnerMinute","weekendDinnerHour","weekdayDinnerMinute","weekdayWakeHour","weekdayWakeMinute","weekendWakeMinute","weekdayDinnerHour","weekendWakeHour", "uniqueKey", "pause", "notification_6", ""], true);
-  Logger.log(removedItems);
 }
 
 //then sort the data
