@@ -37,35 +37,34 @@ First, you will need to create your compliance spreadsheet. This spreadsheet sho
 **Participant ID**, **Participant’s Name**, **Participant Email**, **App Installation Day**, **First Day of Data Collection**, 
 **Day After Last Day of Data Collection**, **Compliance 1**, **Compliance Check Date 1**, **Compliance 2**, **Compliance Check Date 2**, 
 … **Compliance X**, **Compliance Check X**. 
-* If you wish to use our compliance email reminder tool as well, which we will describe in 
-greater detail below, you should also add the following to the header: 
+* If you wish to use our compliance email reminder tool as well, which we describe in 
+greater detail [here](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Compliance%20Emailer%20Instructions.md), you should also add the following to the header: 
 **Compliance1 Email Sent**, **Compliance2 Email Sent**, … **ComplianceX-1 Email Sent**. 
-You can see an example of a compliance sheet on this [page](https://docs.google.com/spreadsheets/d/16VZAKlW0thWRyWwwxvUrq2xfjSJHgWKTZN7oDq5gDvw/edit?usp=sharing). 
+You can see an example of a compliance sheet on [here](https://docs.google.com/spreadsheets/d/16VZAKlW0thWRyWwwxvUrq2xfjSJHgWKTZN7oDq5gDvw/edit?usp=sharing). 
 * In both cases, **X** is the number of days of data collection. 
 
 ###Create Compliance Script
 Next, you will have to set up the script. 
-1. Download our Compliance Checker script. You will then copy this script into a new 
-Google Script project. To do this, go to Google Script and create a blank project. Then copy our code into the script.  In this code, 
-you will have to make two changes. First, you will need to tell the script the Google Sheet ID of your compliance spreadsheet. Remember 
-that the sheet id is found in the Google Sheet URL, and it is a long string of letters, numbers, and symbols that appears before 
-“`/edit#gid=…`”. You will also need to tell the script the Google Sheet ID of your spliced database. 
 
-Once you have made these changes to the script, you should save your script. We named our script Compliance Script. Then you will 
-need to authorize the script to run. That is, you need to provide your script with permission to look at the data in your spreadsheet. 
-To do this, you need to click on the debug icon, which looks like a bug and is located beside the dropdown menu in the toolbar. 
+1. Go to [Google Script](https://www.google.com/script/start/) and click on `Start Scripting`. 
+2. Delete the following from the Script Editor: `function myFunction(){}`
+3. Copy and paste this [script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Checker.js) into the blank script editor. 
+  * In this code, you will have to make two changes. First, you will need to tell the script the Google Sheet ID of your compliance spreadsheet. Remember that the sheet id is found in the Google Sheet URL, and it is a long string of letters, numbers, and symbols that appears before “`/edit#gid=…`”. 
+  * You will also need to tell the script the Google Sheet ID of your spliced database. 
+4. Once you have made these changes to the script, you should save your script. We named our script **Compliance Script**. 
+5. You will need to authorize the script to run. That is, you need to provide your script with permission to look at the data in your spreadsheet. 
+  * To do this, you need to click on the debug icon, which looks like a bug and is located beside the dropdown menu in the toolbar. 
+6. Next, we want our script to run automatically each day. To do this, we will have to set triggers. 
+  * A trigger tells the script to run if a specific condition has been met. For example, you can tell the script to run every time the spreadsheet is updated or you can tell the script to run between two specific times every day. We will use a time-based trigger to our script. We will want to specify two time-based trigger. 
+    * The first one will splice the long variable string into a unique key, a variable name, and a timestamp. 
+    * The second one will count the number of completed questionnaires. 
 
-Next, we want our script to run automatically each day. To do this, we will have to set triggers. A trigger tells the script to run if a 
-specific condition has been met. For example, you can tell the script to run every time the spreadsheet is updated or you can tell 
-the script to run between two specific times every day. We will use a time-based trigger to our script. We will want to specify two 
-time-based trigger. The first one will splice the long variable string into a unique key, a variable name, and a timestamp. The second 
-one will count the number of completed questionnaires. 
+To specify a time-based trigger:
 
-To specify a time-based trigger, you first click on the clock icon that appears 
-beside the play icon. Then click **Add a new trigger**, then select **spliceData** in the first dropdown menu and **Day timer** in the 
-third menu, and **3am to 4am** in the last menu. Then you create your second trigger by selecting Select **checkCompletedSurveys** in the 
-first dropdown menu, **Day timer** in the third dropdown menu, and **4am to 5am** in the last dropdown menu. We selected these times 
-for our triggers because most participants will probably be sleeping and not be providing new data; however, you can select the 
-most appropriate trigger times based on the population of participants they are studying. If you have chosen to use the 
-`intakeSessionTestData` function, you will need a third trigger. You can run this function between 2am to 3am. 
+1. First click on the clock icon that appears beside the play icon. 
+2. Click `Add a new trigger`, then select `spliceData` in the first dropdown menu and `Day timer` in the third menu, and `3am to 4am` in the last menu. 
+3. Create your second trigger by selecting Select `checkCompletedSurveys` in the first dropdown menu, `Day timer` in the third dropdown menu, and `4am to 5am` in the last dropdown menu. 
+
+We selected these times for our triggers because most participants will probably be sleeping and not be providing new data; however, you can select the most appropriate trigger times based on the population of participants they are studying. If you have chosen to use the 
+`intakeSessionTestData` function, you will need a third trigger. You can run this function between `2am to 3am`. 
 
