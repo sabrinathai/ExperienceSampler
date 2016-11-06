@@ -59,9 +59,9 @@ Next, you will have to set up the script.
     * The first one will splice the long variable string into a unique key, a variable name, and a timestamp. 
     * The second one will count the number of completed questionnaires. 
  * To specify a time-based trigger:
-  * First click on the clock icon that appears beside the play icon. 
-  * Click `Add a new trigger`, then select `spliceData` in the first dropdown menu and `Day timer` in the third menu, and `3am to 4am` in  the last menu. 
-  * Create your second trigger by selecting Select `checkCompletedSurveys` in the first dropdown menu, `Day timer` in the third dropdown menu, and `4am to 5am` in the last dropdown menu. 
+   * First click on the clock icon that appears beside the play icon. 
+   * Click `Add a new trigger`, then select `spliceData` in the first dropdown menu and `Day timer` in the third menu, and `3am to 4am` in  the last menu. 
+   * Create your second trigger by selecting Select `checkCompletedSurveys` in the first dropdown menu, `Day timer` in the third dropdown menu, and `4am to 5am` in the last dropdown menu. 
 
 We selected these times for our triggers because most participants will probably be sleeping and not be providing new data; however, you can select the most appropriate trigger times based on the population of participants they are studying. If you have chosen to use the 
 `intakeSessionTestData` function, you will need a third trigger. You can run this function between `2am to 3am`. 
