@@ -48,12 +48,14 @@ of time.
 2. Copy and paste our [Compliance Emailer script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Emailer.js) into the blank script editor. 
 
 In this code, you will have to make several changes. 
-In the **first section**,
+###First Section
+
 1. You will need to tell the script the Google Sheet ID of your compliance spreadsheet. Remember that the sheet id is found in the Google Sheet URL, and it is a long string of letters, numbers, and symbols that appears before `/edit#gid=…`. 
 2. You will also need to tell the script the Google Sheet ID of your spliced database. 
 3. Now you will tell the script what each column in the Compliance Spreadsheet represents. This section appears after `var column = data[i]` line that appears inside the `if (i>0)` statement. 
   * Remember that in this section, we use zero-based character numbering, so column 1 in the spreadsheet is referred to as `column[0]` in the script. You will need to declare a new variable for each column in your Compliance spreadsheet (e.g., `var name = column[1]`). 
 
+###Second Section
 At the end of the **second section**, you will need to customize one line (line 69 in [GitHub file](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Emailer.js)). This line determines which column the script should note the 
 status of the compliance email, `var complianceEmailColumn`. 
   * To calculate the compliance email column number, you determine the zero-based 
@@ -61,6 +63,7 @@ character number of the first email compliance column (e.g., column titled **Com
 `daysFromTheFirstDataDay` (i.e., days that have passed since the first day of the participant’s experience sampling data collection period). 
     * For example, your first compliance email column may have a zero-based character number of 28, so your compliance email column statement would be `var complianceEmailColumn = 28 – daysFromFirstDataDay`. 
 
+###Third Section
 In the **third section**, you will specify the conditions that must be met to send a compliance reminder email. For our example, we 
 will use an experience sampling design that notifies participants six times a day, but we only expect participants to complete 
 5 questionnaires each day for 7 days. We have six unique sets of conditions that can be met in order for an email to be sent. 
@@ -83,7 +86,7 @@ Then you repeat this for two days after the first day of the experience sampling
 
 and so forth until you reach the value of 6, which is equal to the last day of the experience sampling period. 
 
-###`if` statement. 
+####`if` statement. 
 Inside the `if` statement of the third section, you will specify the properties of your email message. 
 
 1. First, we will nest another `if` statement inside the third section that states that an email will only be sent if the participant’s email, which we will call `emailAddress`, is not blank, `if (emailAddress !== “”)`.
@@ -95,6 +98,7 @@ Inside the `if` statement of the third section, you will specify the properties 
 4. Then you will tell the app to send your email to your participant, `MailApp, sendEmail(emailAddress, subject, message, {name: “Study Name”})`. 
   * In this case, you would specify either your lab or study name where is says Study Name. Finally, you will tell the script to indicate that an email has been sent, `complianceSheet.getRange(startRow + i, complianceEmailColumn).setValue(sent)`.
 
+###Fourth Section
 The final section is very similar to the third section, but much simpler. This section specifies when to note in the Compliance 
 Spreadsheet that all the questionnaires have been completed, so it is an else if statement. The conditions for this statement 
 are identical to the ones set in the third section with one exception. The number of questionnaires that must be completed should 
