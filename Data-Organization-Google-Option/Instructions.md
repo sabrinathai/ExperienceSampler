@@ -42,8 +42,7 @@ into the blank script editor.
 3. Delete the following from the Script Editor:  `function myFunction(){}`
 4. Copy and paste the getVariableNames script (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/getVariableNames.js) 
 into the blank script editor. 
-5. Paste the id of your **Converted Long Form** spreadsheet into line 12, where it says **Google sheet ID**. Remember this is a long string of letters, 
-numbers, and symbols that appears before `/edit#gid=...`
+5. Copy and paste the id of your **Converted Long Form** spreadsheet into line 12, where it says **Google sheet ID**. Remember, this is a long string of letters, numbers, and symbols that appears before `/edit#gid=...`
 6. Check that the values in the **removedVariables** line (line 6) include all the values that should be removed in **Column B** 
 of the **Spliced Data Spreadsheet**. This should include pause time rows (i.e., "time"), participant id (i.e., "id"), and the list of 
 notifications (i.e,. the numbers), and any blank rows (i.e., ""). 
@@ -53,6 +52,14 @@ notifications (i.e,. the numbers), and any blank rows (i.e., "").
     * Click `Allow` in the second popup window
  * This will set the header of the **Converted Long Form** spreadsheet with the variable names from your data. Be sure to compare these to the variable names in your questionniare in your ExperienceSampler `index.js` file. Be sure that no variables are omitted and that the variables are ordered the way you want. If a variable name is omitted in the header, the values associated with that variable name will not be written into the converted long form spreadsheet. 
 
-##Convert Spliced Data to Long Form
-
+##Convert Spliced Data to Long Form - No Loops
+1. Return to your **Clean Data** Google Script. Go to `File` > `New` > `Script file`. Name it **"Long Form Converter"**.
+2. Delete the following from the Script Editor:  `function myFunction(){}`
+3. Copy and paste the getVariableNames script (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Long%20Form%20Converter.js) 
+4. Copy and paste the id of your **Spliced Data** spreadsheet into line 1, where it says **Google Sheet ID**. Remember, this is a long string of letters, numbers, and symbols that appears before `/edit#gid=...`
+5. Copy and paste the id of your **Converted Long Form** spreadsheet into line 3, where it says **Google Sheet ID**. Remember, this is a long string of letters, numbers, and symbols that appears before `/edit#gid=...`
+6. Select the `convertToLongForm` function from the dropdown menu, and then hit the **play button icon**. 
+  * You will be asked to provide authorization.
+    * Click `Review Permissions` in the first popup window
+    * Click `Allow` in the second popup window
 
