@@ -7,7 +7,7 @@ the timestamp is in the third column, and the participant's responses are in the
   * If some of the data has not been spliced, use the **"Splicer Only"** script to splice the unspliced data.
     1. Open a new Google Script file and name it Splicer Only.
     2. Delete the following from the Script Editor:  `function myFunction(){}`
-    3. Copy and paste the script found here (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) 
+    3. Copy and paste the script found [here](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) 
     into the blank script editor. 
     4. Copy the id of the spliced data spreadsheet that you're working with in line 1. Remember this is a long string of letters, 
     numbers, and symbols that appears before `/edit#gid=...`
