@@ -9,7 +9,7 @@ function getVariableNames() {
     googleVariableNames.push([uniqueVariableNames[i]]);
   }
   var values = [googleVariableNames];
-  var longFormDataSheet = SpreadsheetApp.openById("18zWDShdygKpidYpZ0uAYHRStVaamUD2IwzuQlsyIyI8").getSheets()[0];
+  var longFormDataSheet = SpreadsheetApp.openById("Google sheet ID").getSheets()[0];
   var range = longFormDataSheet.getRange(1,1,1, googleVariableNames.length);
   range.setValues(values);
 }
