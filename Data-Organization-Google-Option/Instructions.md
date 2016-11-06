@@ -4,9 +4,7 @@
 1. Make a copy of spliced data. **Never** alter your raw data. 
 2. Check that all the data has been spliced. That is, the unique key is in the first column, the variable name is in the second column, 
 the timestamp is in the third column, and the participant's responses are in the fourth column.
-  * If some of the data has not been spliced, use the **"Splicer Only"** script 
-  (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) to splice 
-  the unspliced data.
+  * If some of the data has not been spliced, use the **"Splicer Only"** script to splice the unspliced data.
     * Open a new Google Script file and name it Splicer Only.
     * Delete the following from the Script Editor:  `function myFunction(){}`
     * Copy and paste the script found here (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) 
