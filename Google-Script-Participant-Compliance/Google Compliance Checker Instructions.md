@@ -1,6 +1,6 @@
 #Checking Compliance
 We have created a script using Google script to check participant’s compliance at the end of each day. The script can be downloaded 
-from this page (https://script.google.com/d/1I-Uo_phZEM94YYvjWMwZPi5hGG3V3YwBSm4yOabD4Q-t0bvntCiHNw-i/edit?usp=sharing). You can also find it on GitHub (https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Checker.js). Below 
+from this [page](https://script.google.com/d/1I-Uo_phZEM94YYvjWMwZPi5hGG3V3YwBSm4yOabD4Q-t0bvntCiHNw-i/edit?usp=sharing). You can also find it on [GitHub](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Checker.js). Below 
 we will outline how to implement the compliance checker. This script checks each participant’s data sheet and determines the number of 
 entirely completed questionnaires at the end of each day. The script will then record this to the Compliance Google spreadsheet. 
 
@@ -32,16 +32,20 @@ has been collected on a given day, we would advise you to run this function one 
 (i.e., `checkCompletedSurveys`) function. 
 
 ##Implementing the script. 
+###Create Compliance Spreadsheet
 First, you will need to create your compliance spreadsheet. This spreadsheet should have the following headers in this order: 
 **Participant ID**, **Participant’s Name**, **Participant Email**, **App Installation Day**, **First Day of Data Collection**, 
 **Day After Last Day of Data Collection**, **Compliance 1**, **Compliance Check Date 1**, **Compliance 2**, **Compliance Check Date 2**, 
-… **Compliance X**, **Compliance Check X**. If you wish to use our compliance email reminder tool as well, which we will describe in 
+… **Compliance X**, **Compliance Check X**. 
+* If you wish to use our compliance email reminder tool as well, which we will describe in 
 greater detail below, you should also add the following to the header: 
 **Compliance1 Email Sent**, **Compliance2 Email Sent**, … **ComplianceX-1 Email Sent**. 
-You can see an example of a compliance sheet on this page (https://docs.google.com/spreadsheets/d/16VZAKlW0thWRyWwwxvUrq2xfjSJHgWKTZN7oDq5gDvw/edit?usp=sharing). 
-In both cases, **X** is the number of days of data collection. 
+You can see an example of a compliance sheet on this [page](https://docs.google.com/spreadsheets/d/16VZAKlW0thWRyWwwxvUrq2xfjSJHgWKTZN7oDq5gDvw/edit?usp=sharing). 
+* In both cases, **X** is the number of days of data collection. 
 
-Next, you will have to set up the script. First, download our Compliance Checker script. You will then copy this script into a new 
+###Create Compliance Script
+Next, you will have to set up the script. 
+1. Download our Compliance Checker script. You will then copy this script into a new 
 Google Script project. To do this, go to Google Script and create a blank project. Then copy our code into the script.  In this code, 
 you will have to make two changes. First, you will need to tell the script the Google Sheet ID of your compliance spreadsheet. Remember 
 that the sheet id is found in the Google Sheet URL, and it is a long string of letters, numbers, and symbols that appears before 
