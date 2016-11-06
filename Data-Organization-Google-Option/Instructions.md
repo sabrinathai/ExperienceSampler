@@ -51,6 +51,7 @@ notifications (i.e,. the numbers), and any blank rows (i.e., "").
   * You will be asked to provide authorization.
     * Click `Review Permissions` in the first popup window
     * Click `Allow` in the second popup window
+ * This will set the header of the **Converted Long Form** spreadsheet with the variable names from your data. Be sure to compare these to the variable names in your questionniare in your ExperienceSampler `index.js` file. Be sure that no variables are omitted and that the variables are ordered the way you want. If a variable name is omitted in the header, the values associated with that variable name will not be written into the converted long form spreadsheet. 
 
 ##Convert Spliced Data to Long Form
 
