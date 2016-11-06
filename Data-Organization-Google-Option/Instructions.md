@@ -66,5 +66,5 @@ of the **Spliced Data Spreadsheet**. This should include pause time rows (i.e., 
     * Click `Allow` in the second popup window
 8. Your data will be converted from spliced to long form. Change the format of *startTime* and *endTime* by highlighting the entire column. Then go to `Format` > `Number` > `Date time`.
  * Before you analyze your data, check all the start times. If the start time is "**12/31/1969 19:00:00**", then you need to find the timestamp in the spliced data and enter it into the appropriate column. 
- 
+9. When you are happy with data, you can download it: `File` > `Download as` > `Comma-separated values (.csv, current sheet)`. Then import the long form data into your favourite statistical analysis program. 
 
