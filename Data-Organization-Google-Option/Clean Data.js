@@ -1,9 +1,11 @@
 function cleanData() {
   var totalSheets = SpreadsheetApp.getActiveSpreadsheet().getNumSheets();
-  for (i in totalSheets) {
-    var sheet = SpreadsheetApp.getActiveSheet()[i];
+  for (var i=0; i< totalSheets; i++) {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[i];
+    Logger.log(sheet);
     removeDuplicates(sheet);
     removeEmptyRows(sheet);
+    Logger.log("I ran the for function");
   }
 }
 
