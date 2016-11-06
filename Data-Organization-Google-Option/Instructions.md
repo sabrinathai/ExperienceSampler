@@ -1,20 +1,20 @@
 #Implementing the Google Script Data Organizer
 
 ##Prepare the Data
-1. Make a copy of spliced data. **Never** alter your raw data. 
+1. Make a copy of your spliced data. **Never** alter your raw data. 
 2. Check that all the data has been spliced. That is, the unique key is in the first column, the variable name is in the second column, 
 the timestamp is in the third column, and the participant's responses are in the fourth column.
   * If some of the data has not been spliced, use the **"Splicer Only"** script to splice the unspliced data.
-    * Open a new Google Script file and name it Splicer Only.
-    * Delete the following from the Script Editor:  `function myFunction(){}`
-    * Copy and paste the script found here (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) 
+    1. Open a new Google Script file and name it Splicer Only.
+    2. Delete the following from the Script Editor:  `function myFunction(){}`
+    3. Copy and paste the script found here (https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Splicer%20Only.js) 
     into the blank script editor. 
-    * Copy the id of the spliced data spreadsheet that you're working with in line 1. Remember this is a long string of letters, 
+    4. Copy the id of the spliced data spreadsheet that you're working with in line 1. Remember this is a long string of letters, 
     numbers, and symbols that appears before `/edit#gid=...`
-    * Then enter the sheet name, which is usually the participant's id, in line 4 of the script. 
-    * You can also adjust the startRow (line 9 and comment out the **for** loop in lines 12 to 15) and lastRow (line 6), 
+    5. Then enter the sheet name, which is usually the participant's id, in line 4 of the script. 
+    6. You can also adjust the startRow (line 9 and comment out the **for** loop in lines 12 to 15) and lastRow (line 6), 
     depending on what rows need to be spliced. 
-    * When you are ready to splice the data, select `spliceVariableName` in the dropdown menu and hit play. You will be asked to provide
+    7. When you are ready to splice the data, select `spliceVariableName` in the dropdown menu and hit play. You will be asked to provide
     authorization for the function. Click on `Review Permissions` in the first popup window, and `Allow` in the second popup window. 
  
 ##Clean the Data
