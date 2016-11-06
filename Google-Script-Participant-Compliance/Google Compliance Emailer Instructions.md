@@ -107,6 +107,7 @@ greater than 5, `c1Met >=5`. Again, we will specify this set of condition for ev
 of these conditions is met, then we want the script to write that Survey Completed in the appropriate email column, 
 `complianceSheet.getRange(startRow + i, complianceEmailColumn).setValue("Survey Completed")`. 
 
+###Save Your Script
 Once you have made these changes to the script, you should save your script. 
 
 1. First, name your script. We named our script "**Compliance Emailer**". 
