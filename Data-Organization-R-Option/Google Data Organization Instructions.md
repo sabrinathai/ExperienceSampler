@@ -35,7 +35,9 @@ Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/
 2. Create a folder for your spliced data. Copy and paste the directory for your **spliced** data folder in **lines 74 and 83**
 3. In **line 93**, set the directory for where you want to save the **merged** file of all the spliced data. 
  * Do not save this file in the same folder as your spliced data. If you have to recreate this merged file of all the spliced data, you will have duplicate entries of data because the data in the original merged file will also be used in the recreated file. 
-
+4. Highlight and run the entire script. Alternatively, you can do this in two parts. 
+ * In the first run, highlight and runall the lines up to and including line 80. This section of the script will clean and splice the raw data. 
+ * In the second run, highlight and runlines 83 to the end of the script. This section of the script will merge all the spliced data together. 
 
 ##Convert to Long Form
 Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
