@@ -116,4 +116,5 @@ all.spliced.data <- lapply(spliced.files, function(.file){
 })
 
 spliced.dataframe <- do.call(rbind, all.spliced.data)
+setwd("") #set directory to be outside the spliced data folder
 write.csv(spliced.dataframe, "all.spliced.data.csv", row.names=FALSE)
