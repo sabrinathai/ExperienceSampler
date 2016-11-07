@@ -80,7 +80,7 @@ clean.data <- function (fileList){
 clean.data(rawfiles)
 
 ####Make Merged File of ALL Spliced Data####
-setwd("/Users/sabrinathai/Documents/Research/Outside Project/Phone Apps/Phone App Methods Manuscript/Spliced Testing Data - Expanded Self Comparisons")
+setwd("")
 spliced.files <- list.files(pattern="*.csv", full.names = F)
 all.spliced.data <- lapply(spliced.files, function(.file){
   dat<-read.csv(.file, header=T)
