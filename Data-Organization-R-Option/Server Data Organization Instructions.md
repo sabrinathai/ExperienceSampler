@@ -39,8 +39,8 @@ Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSa
     * **Third Argument**: The column
 3. If you missed any variable names that are not associated with usable data, you can delete them in **line 34**. 
  * Just input the row numbers.
-4. In **line 49**, mathc the lines starting from **28**
- * This reanmes the variables in the **ACTUAL** spliced dataset
+4. Starting from **line 49**, copy and paste the lines starting from **28**
+ * This renames the variables in the **ACTUAL** spliced dataset
 5. If you wish to reorganize the columns in your dataset, uncomment **lines 92 - 103**.
  * Rearrange them by typing the variable names in the order you desire. Each variable name should appear between the quotation marks. 
 6. In **line 114**, set the directory for where you want your long form data to be saved. You can rename the long form data file in **line 115** if you want. 
