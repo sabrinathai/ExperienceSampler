@@ -14,10 +14,31 @@ If you have participants test the app during an information session, you may wan
 6. After this function has finished running, select `saveAsCSV` from the dropdown menu and click the Play icon. Wait for the data to be downloaded. 
 7. Return to your Drive folder. Find the folder that has been created; it will have the same name as your spreadsheet. Right-click the folder to download. 
 
+**NOTE**: You should remove any raw data files that does not contain any actual data. That is, if the participant's data file only includes pause times, unique keys, etc., you should remove the data file from the raw data folder otherwise the script to splice, prepare, and clean Google data will stop processing the data once it encounters this file. 
+
 ##Splice, Prepare, and Clean Data
+Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Splice%2C%20Prepare%2C%20and%20Clean%20Google%20Data). We include detailed comments throughout our R script describing waht each line is doing and some instructions. Below we point out lines that require modification and how to ensure the script runs smoothly. 
+
+###Check Data Files
+
+1. Remove any data files that do not include any actual data. 
+ * Files do **NOT** contain rows of data that have a unique key, variable name, and timestamp in the first column do not contain actual data. These files should be removed from the raw data file folder on your computer otherwise the script will stop processing files once it encounters this file. 
+
+###Get Necessary Libraries
+
+1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
+  * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
+
+###Splice, Prepare, and Clean Google Data
+
+1. Copy the directory for your raw Google data folder in **lines 9 and 15** between the quotation marks. 
+2. Create a folder for your spliced data. Copy and paste the directory for your **spliced** data folder in **lines 74 and 83**
+3. In **line 93**, set the directory for where you want to save the **merged** file of all the spliced data. 
+ * Do not save this file in the same folder as your spliced data. If you have to recreate this merged file of all the spliced data, you will have duplicate entries of data because the data in the original merged file will also be used in the recreated file. 
+
 
 ##Convert to Long Form
-Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
+Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
 
 This process is the same for both Server and Google Data. 
 ###Get Necessary Libraries
