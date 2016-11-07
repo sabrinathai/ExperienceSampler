@@ -32,10 +32,11 @@ Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/
 ###Splice, Prepare, and Clean Google Data
 
 1. Copy the directory for your raw Google data folder in **lines 9 and 15** between the quotation marks. 
-2. Create a folder for your spliced data. Copy and paste the directory for your **spliced** data folder in **lines 74 and 83**
-3. In **line 93**, set the directory for where you want to save the **merged** file of all the spliced data. 
+2. In **lines 55-65**, enter all the unique key values that are not associated with real data such as **pause**, **notification**, **snoozed**, etc. 
+3. Create a folder for your spliced data. Copy and paste the directory for your **spliced** data folder in **lines 74 and 83**
+4. In **line 93**, set the directory for where you want to save the **merged** file of all the spliced data. 
  * Do not save this file in the same folder as your spliced data. If you have to recreate this merged file of all the spliced data, you will have duplicate entries of data because the data in the original merged file will also be used in the recreated file. 
-4. Highlight and run the entire script. Alternatively, you can do this in two parts. 
+5. Highlight and run the entire script. Alternatively, you can do this in two parts. 
  * In the first run, highlight and runall the lines up to and including line 80. This section of the script will clean and splice the raw data. 
  * In the second run, highlight and runlines 83 to the end of the script. This section of the script will merge all the spliced data together. 
 
