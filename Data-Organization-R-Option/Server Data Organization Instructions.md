@@ -22,7 +22,7 @@ Download our [Get, Splice, and Clean Data.R script](https://github.com/sabrinath
 10. Highlight and run the entire script. 
 
 ##Convert to Long Form
-Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describeing what each line is doing and some instructions. Below we point out the lines that require modifications.
+Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
 ###Get Necessary Libraries
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
