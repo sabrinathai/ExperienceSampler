@@ -1,9 +1,9 @@
 ####Load All Necessary Libraries####
 library(tools)
-#install.packages("tidyr")
+#install.packages("tidyr"); install.packages("stringr"); install.packages("plyr")
 library("tidyr")
 library("stringr")
-library(plyr)
+library("plyr")
 
 ####Set Your Working Directory and Read In Raw Data From Server####
 setwd("") #set directory path to folder for raw data
@@ -26,7 +26,7 @@ missingPIDs <-c(6,8,33,34,88,92,101,131,156,161,162) #if you don't have any miss
 #create final vector of PIDs to iterate through
 pids <- allPIDs [! allPIDs %in% missingPIDs] #if you don't have any missing ids, comment this line out
 #tell R where to save all your raw data
-setwd("") #this path should be to your saved data; this can be different from line 9
+setwd("") #this path should be to your saved data; should be the same as line 9
 #get and save all your raw data
 save.raw.data(pids)
 
@@ -34,12 +34,12 @@ save.raw.data(pids)
 rawfiles <- list.files(path="", pattern="*.csv", ) #should be the same as line 9
 
 ####FUNCTION TO CLEAN AND SPLICE THE DATA####
-###Server data is tab delimited###
-###Google data is comma-separated values###
+###Server data is tab delimited### - separtor is "\t"
+###Google data is comma-separated values### - separator is ","
 clean.data <- function (fileList){
   for (i in 1:length(fileList)){
     setwd("") #same as line 9
-    data <- read.csv(fileList[i], sep="\t", header = F)
+    data <- read.csv(fileList[i], sep="\t", header = F) #change sep depending on whether it is tab delimited or comma-separated values
     pid <-file_path_sans_ext(fileList[i])
     colnames(data)<-c("variable.string", "values")
     ####Remove Duplicate Rows from Dataset####
