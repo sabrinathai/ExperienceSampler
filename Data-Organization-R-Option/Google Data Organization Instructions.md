@@ -14,7 +14,7 @@ If you have participants test the app during an information session, you may wan
 6. After this function has finished running, select `saveAsCSV` from the dropdown menu and click the Play icon. Wait for the data to be downloaded. 
 7. Return to your Drive folder. Find the folder that has been created; it will have the same name as your spreadsheet. Right-click the folder to download. 
 
-**NOTE**: You should remove any raw data files that does not contain any actual data. That is, if the participant's data file only includes pause times, unique keys, etc., you should remove the data file from the raw data folder otherwise the script to splice, prepare, and clean Google data will stop processing the data once it encounters this file. 
+**NOTE**: You should remove any raw data files in the folder that do not contain any actual data. That is, if the participant's data file only includes pause times, unique keys, etc., you should remove the data file from the raw data folder otherwise the script to splice, prepare, and clean Google data will stop processing the data once it encounters this file. 
 
 ##Splice, Prepare, and Clean Data
 Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Splice%2C%20Prepare%2C%20and%20Clean%20Google%20Data). We include detailed comments throughout our R script describing waht each line is doing and some instructions. Below we point out lines that require modification and how to ensure the script runs smoothly. 
