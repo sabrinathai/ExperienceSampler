@@ -18,5 +18,6 @@ Download our [Get, Splice, and Clean Data.R script](https://github.com/sabrinath
 7. Create a new folder to save your **spliced** data on your computer. 
 8. Copy this directory and paste it between the double quotation marks in **lines 100 and 109**.
   * Do **NOT** store in your spliced data in the same folder as your raw data. 
+9. In **line 123**, set the directory to be different from spliced data folder. 
 
 ##Convert to Long Form
