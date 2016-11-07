@@ -17,7 +17,7 @@ If you have participants test the app during an information session, you may wan
 **NOTE**: You should remove any raw data files in the folder that do not contain any actual data. That is, if the participant's data file only includes pause times, unique keys, etc., you should remove the data file from the raw data folder otherwise the script to splice, prepare, and clean Google data will stop processing the data once it encounters this file. 
 
 ##Splice, Prepare, and Clean Data
-Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Splice%2C%20Prepare%2C%20and%20Clean%20Google%20Data). We include detailed comments throughout our R script describing waht each line is doing and some instructions. Below we point out lines that require modification and how to ensure the script runs smoothly. 
+Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Splice%2C%20Prepare%2C%20and%20Clean%20Google%20Data.R). We include detailed comments throughout our R script describing waht each line is doing and some instructions. Below we point out lines that require modification and how to ensure the script runs smoothly. 
 
 ###Check Data Files
 
