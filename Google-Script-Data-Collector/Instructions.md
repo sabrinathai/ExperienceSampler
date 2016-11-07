@@ -9,7 +9,7 @@ You can also create a Google Document that will act as a log of the web app’s 
 
 1. Go to [Google Script](http://www.google.com/script/start/). 
 2. Select a Blank Project in the top left of the menu of the pop-up dialog. You can copy and paste the script from [this page](https://script.google.com/d/1P5dCtwPQxsXYFcN68sE8egkfyhKs0WDcXqFDXm3jactwxvbUXP8sLJlR/edit?usp=sharing) 
-or from [GitHub](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google%20Script%20Data%20Collector.js). 
+or from [GitHub](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Data-Collector/DataCollector.gs). 
 3. You will then replace the variables `databaseID`, `splicedDatabaseID`, `complianceID`, and `DocumentID`, in the example code with the ids you stored for the raw data spreadsheet, the spliced data spreadsheet, the compliance data spreadsheet, and the web app log, 
 respectively. 
 4. Save the script. 
