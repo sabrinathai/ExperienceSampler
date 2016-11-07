@@ -17,7 +17,9 @@ If you have participants test the app during an information session, you may wan
 ##Splice, Prepare, and Clean Data
 
 ##Convert to Long Form
-Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describeing what each line is doing and some instructions. Below we point out the lines that require modifications.
+Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
+
+This process is the same for both Server and Google Data. 
 ###Get Necessary Libraries
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
