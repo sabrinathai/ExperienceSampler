@@ -50,7 +50,7 @@ This process is the same for both Server and Google Data.
 
 ###Convert Data###
 1. In **line 9**, set the directory to where the merged spliced data file is. 
-####Set Variable Names in Long Form Dataset
+####Set Variable Names in Long Form Dataset####
 2. Starting from **line 28**, you can correct any weird variable names.
  * Sometimes ExperienceSampler will append a "1" or a "-" to variable names. You want to ensure that values for the same variable are 
  written in the same column, so you need to correct this. 
