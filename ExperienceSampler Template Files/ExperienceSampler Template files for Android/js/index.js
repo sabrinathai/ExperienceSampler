@@ -419,6 +419,9 @@ init: function() {
 	else {
     	uniqueKey = new Date().getTime();
         localStore.uniqueKey = uniqueKey;
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;	   		
         app.renderQuestion(0);
     }
     localStore.snoozed = 0;
@@ -536,6 +539,7 @@ recordResponse: function(button, count) {
 /* Time stamps the current moment to determine how to resume */
 pauseEvents: function() {
     localStore.pause_time = new Date().getTime();
+    localStore.uniqueKey = uniqueKey;	
     app.saveData();
 },
       
@@ -548,6 +552,9 @@ sampleParticipant: function() {
     if ((current_time - localStore.pause_time) > X || localStore.snoozed == 1) {
         uniqueKey = new Date().getTime();
         localStore.snoozed = 0;
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;	   	    
         app.renderQuestion(0);
     }
     else {
