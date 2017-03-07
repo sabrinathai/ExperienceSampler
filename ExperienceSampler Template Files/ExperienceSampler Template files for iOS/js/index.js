@@ -436,7 +436,7 @@ recordResponse: function(button, count) {
 		//This tells ExperienceSampler how to save data from the various formats
     //Record date (create new date object)
 //     var datestamp = new Date();
-//     var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds = ;
+//     var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
 //     //Record value of text field
 //     var response, currentQuestion, uniqueRecord;
 //     if (type == 'text') {
@@ -483,7 +483,7 @@ recordResponse: function(button, count) {
 //      	currentQuestion = button.split(",",1);
 //     }
 //     if (count <= -1) {uniqueRecord = currentQuestion}
-//     else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds;}
+//     else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds;}
 //     //Save this to local storage
 //     localStore[uniqueRecord] = response;
 //		
