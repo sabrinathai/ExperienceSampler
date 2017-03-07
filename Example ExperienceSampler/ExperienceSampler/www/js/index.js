@@ -435,8 +435,8 @@ renderLastPage: function(pageData, question_index) {
     }
     else {
     	var datestamp = new Date();
-    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
-    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds] = 1;	
+    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
+    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds] = 1;	
     	app.saveDataLastPage();
     }
 },
@@ -444,7 +444,7 @@ renderLastPage: function(pageData, question_index) {
 recordResponse: function(button, count, type) {
     //Record date (create new date object)
     var datestamp = new Date();
-    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
+    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
     //Record value of text field
     var response, currentQuestion, uniqueRecord;
     if (type == 'text') {
@@ -492,7 +492,7 @@ recordResponse: function(button, count, type) {
     }
     if (count == 6) {name = response;}
     if (count <= -1) {uniqueRecord = currentQuestion;}
-    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds;}
+    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds;}
 //     //Save this to local storage
     localStore[uniqueRecord] = response;
     //Identify the next question to populate the view
@@ -526,6 +526,9 @@ init: function() {
     else {
     	uniqueKey = new Date().getTime();
         localStore.uniqueKey = uniqueKey;
+	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;	
         app.renderQuestion(0);
     }
     localStore.snoozed = 0;
@@ -536,6 +539,9 @@ sampleParticipant: function() {
     var current_time = current_moment.getTime();
     if ((current_time - localStore.pause_time) > 600000 || localStore.snoozed == 1) {
         uniqueKey = new Date().getTime();
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;		    
         localStore.snoozed = 0;
         app.renderQuestion(0);
     }
