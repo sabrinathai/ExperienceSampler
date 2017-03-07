@@ -405,8 +405,8 @@ renderLastPage: function(pageData, question_index) {
     //The time stamp created here will also be used to create an end time for your restructured data
     else {
     	var datestamp = new Date();
-    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
-    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds] = 1;	
+    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
+    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds] = 1;	
     	app.saveDataLastPage();
     }
 },
@@ -436,7 +436,7 @@ recordResponse: function(button, count) {
 		//This tells ExperienceSampler how to save data from the various formats
     //Record date (create new date object)
 //     var datestamp = new Date();
-//     var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
+//     var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds = ;
 //     //Record value of text field
 //     var response, currentQuestion, uniqueRecord;
 //     if (type == 'text') {
