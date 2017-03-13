@@ -152,9 +152,10 @@ function getUniqueKeys(sheetName) {
   var lastRow = sheet.getLastRow();
   var startColumn = sheet.getRange("e:e"); 
   var values = startColumn.getValues();
+  var startRows = [];
   var startRow = 0;
   var rowsToCheck;
-  for (var startRow = 0; startRow < values.length && values[startRow][0] != ""; ++startRow) {
+  for (startRow = 0; startRow < values.length && values[startRow][0] != ""; ++startRow) {
     startRows.push(values[startRow][0]);
     startRow = startRows.length;
   }
