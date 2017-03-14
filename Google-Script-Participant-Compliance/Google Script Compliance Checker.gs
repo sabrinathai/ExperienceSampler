@@ -4,9 +4,9 @@ function findCell(PID) {
   var compliance = complianceSheet.getSheets()[0];
   var dataRange = compliance.getDataRange();
   var values = dataRange.getValues();
-  for (var i = 0; i < values.length; i++) {
+  for (var i = 2; i < values.length; i++) {
     var row = "";
-    for (var j = 0; j < values[i].length; j++) {     
+    for (var j = 0; j < 1; j++) {     
       if (values[i][j] == PID) {
         row = i + 1;
         return row; 
