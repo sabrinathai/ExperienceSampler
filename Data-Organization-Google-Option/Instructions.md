@@ -1,6 +1,8 @@
-#Implementing the Google Script Data Organizer
+# Implementing the Google Script Data Organizer
 
-##Prepare the Data
+**NOTE**: The month for the timestamp ranges from 0-11 . Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
+
+## Prepare the Data
 1. Make a copy of your spliced data. **Never** alter your raw data. 
 2. Check that all the data has been spliced. That is, the unique key is in the first column, the variable name is in the second column, 
 the timestamp is in the third column, and the participant's responses are in the fourth column.
@@ -17,7 +19,7 @@ the timestamp is in the third column, and the participant's responses are in the
     7. When you are ready to splice the data, select `spliceVariableName` in the dropdown menu and hit play. You will be asked to provide
     authorization for the function. Click on `Review Permissions` in the first popup window, and `Allow` in the second popup window. 
  
-##Clean the Data
+## Clean the Data
 1. Once you are sure all the data has been spliced, go to `Tools` and select `Script Editor`
 2. This will open a new script editor and name it **"Clean Data"**
 3. Delete the following from the Script Editor:  `function myFunction(){}`
@@ -36,7 +38,7 @@ into the blank script editor.
     * Click `Allow` in the second popup window
 6. Wait for the script to execute these functions on all the sheets in your spliced data spreadsheet.
 
-##Make Long Form Spreadsheet
+## Make Long Form Spreadsheet
 1. Create a New Spreadsheet and name it **"Converted Long Form"**. 
 2. Return to your **Clean Data** Google Script. Go to `File` > `New` > `Script file`. Name it **"Get Variable Names"**.
 3. Delete the following from the Script Editor:  `function myFunction(){}`
@@ -52,7 +54,7 @@ notifications (i.e,. the numbers), and any blank rows (i.e., "").
     * Click `Allow` in the second popup window
  * This will set the header of the **Converted Long Form** spreadsheet with the variable names from your data. Be sure to compare these to the variable names in your questionniare in your ExperienceSampler `index.js` file. Be sure that no variables are omitted and that the variables are ordered the way you want. If a variable name is omitted in the header, the values associated with that variable name will not be written into the converted long form spreadsheet. 
 
-##Convert Spliced Data to Long Form - No Loops
+## Convert Spliced Data to Long Form - No Loops
 1. Return to your **Clean Data** Google Script. Go to `File` > `New` > `Script file`. Name it **"Long Form Converter"**.
 2. Delete the following from the Script Editor:  `function myFunction(){}`
 3. Copy and paste the getVariableNames script found [here](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-Google-Option/Long%20Form%20Converter.js) 
