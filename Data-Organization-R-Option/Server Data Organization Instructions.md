@@ -1,4 +1,5 @@
 #Server Data - Data Organization Instructions
+
 NOTE: The month for the timestamp starts with 0. Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
 
 ##Get, Splice, and Clean Data
