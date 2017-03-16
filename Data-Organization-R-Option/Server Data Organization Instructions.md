@@ -1,15 +1,15 @@
-#Server Data - Data Organization Instructions
+# Server Data - Data Organization Instructions
 
-NOTE: The month for the timestamp starts with 0. Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
+**NOTE**: The month for the timestamp ranges from 0-11 . Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
 
-##Get, Splice, and Clean Data
+## Get, Splice, and Clean Data
 Download our [Get, Splice, and Clean Data.R script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Get%2C%20Splice%2C%20and%20Clean%20Server%20Data.R). We include detailed comments throughout our R Script describing what each line is doing. Below we point out the lines that require modifications. 
 
-###Get Necessary Libraries
+### Get Necessary Libraries
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
 
-###Get, Splice, and Clean Server Data
+### Get, Splice, and Clean Server Data
 1. Create a folder to store your **raw** data on your computer. 
 2. Copy this directory and paste it between the double quotation marks in **lines 9, 29, and 41**. 
 3. In **line 13**, insert the server URL where the **URL** placeholder is.
@@ -24,15 +24,15 @@ Download our [Get, Splice, and Clean Data.R script](https://github.com/sabrinath
 9. In **line 119**, set the directory to be different from spliced data folder. 
 10. Highlight and run the entire script. 
 
-##Convert to Long Form
+## Convert to Long Form
 Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R Script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
 
 This process is the same for both Server and Google Data. 
-###Get Necessary Libraries
+### Get Necessary Libraries
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
 
-###Convert Data###
+### Convert Data ###
 1. In **line 9**, set the directory to where the merged spliced data file is. 
 2. Starting from **line 28**, you can correct any weird variable names.
  * Sometimes ExperienceSampler will append a "1" or a "-" to variable names. You want to ensure that values for the same variable are 
