@@ -1,4 +1,6 @@
 #Server Data - Data Organization Instructions
+NOTE: The month for the timestamp starts with 0. Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
+
 ##Get, Splice, and Clean Data
 Download our [Get, Splice, and Clean Data.R script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Get%2C%20Splice%2C%20and%20Clean%20Server%20Data.R). We include detailed comments throughout our R Script describing what each line is doing. Below we point out the lines that require modifications. 
 
