@@ -1,5 +1,8 @@
-#Google Data - Data Organization Instructions
-##Get Google Data
+# Google Data - Data Organization Instructions
+
+**NOTE**: The month for the timestamp ranges from 0-11 . Thus, January is actually indicated by a 0, February is actually indicated by 1, and so forth. Please remember to keep this in mind.
+
+## Get Google Data
 You can use [this script](https://gist.github.com/mderazon/9655893) to download each sheet in your Google Spreadsheet as a comma-separated values (.csv) file. This script will create a folder and create a csv file for each sheet. You can then download this folder onto your computer and use the following R scripts. We recommend downloading the **raw** data and then having R splice and prepare the data for you. This eliminates the need to check whether the Google splicer has spliced every line of data, which will also save you time. 
 
 If you have participants test the app during an information session, you may want to remove this data before converting it so that you do not confuse practice data with actual data when analyzing the data. 
@@ -16,20 +19,20 @@ If you have participants test the app during an information session, you may wan
 
 **NOTE**: You should remove any raw data files in the folder that do not contain any actual data. That is, if the participant's data file only includes pause times, unique keys, etc., you should remove the data file from the raw data folder otherwise the script to splice, prepare, and clean Google data will stop processing the data once it encounters this file. 
 
-##Splice, Prepare, and Clean Data
+## Splice, Prepare, and Clean Data
 Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/sabrinathai/ExperienceSampler/blob/master/Data-Organization-R-Option/Splice%2C%20Prepare%2C%20and%20Clean%20Google%20Data.R). We include detailed comments throughout our R script describing waht each line is doing and some instructions. Below we point out lines that require modification and how to ensure the script runs smoothly. 
 
-###Check Data Files
+### Check Data Files
 
 1. Remove any data files that do not include any actual data. 
  * Files do **NOT** contain rows of data that have a unique key, variable name, and timestamp in the first column do not contain actual data. These files should be removed from the raw data file folder on your computer otherwise the script will stop processing files once it encounters this file. 
 
-###Get Necessary Libraries
+### Get Necessary Libraries
 
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
 
-###Splice, Prepare, and Clean Google Data
+### Splice, Prepare, and Clean Google Data
 
 1. Copy the directory for your raw Google data folder in **lines 9 and 15** between the quotation marks. 
 2. In **lines 55-65**, enter all the unique key values that are not associated with real data such as **pause**, **notification**, **snoozed**, etc. 
@@ -40,15 +43,15 @@ Download our [Splice, Prepare, and Clean Google Data Script](https://github.com/
  * In the first run, highlight and runall the lines up to and including line 80. This section of the script will clean and splice the raw data. 
  * In the second run, highlight and runlines 83 to the end of the script. This section of the script will merge all the spliced data together. 
 
-##Convert to Long Form
+## Convert to Long Form
 Download our [Convert Data.R script](https://github.com/sabrinathai/ExperienceSampler/edit/master/Data-Organization-R-Option/Convert%20Data.R). We include detailed comments throughout our R script describing what each line is doing and some instructions. Below we point out the lines that require modifications.
 
 This process is the same for both Server and Google Data. 
-###Get Necessary Libraries
+### Get Necessary Libraries
 1. Lines 2 to 6 load the libraries you'll need to get, splice, and clean your ExperienceSampler Server Data.
   * If you do not have the `tidyr`, `stringr`, and `plyr` libraries, uncomment **line 3** to install the packages. 
 
-###Convert Data
+### Convert Data
 1. In **line 9**, set the directory to where the merged spliced data file is. 
 2. Starting from **line 28**, you can correct any weird variable names.
  * Sometimes ExperienceSampler will append a "1" or a "-" to variable names. You want to ensure that values for the same variable are 
