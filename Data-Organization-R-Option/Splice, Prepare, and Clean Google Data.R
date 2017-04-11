@@ -6,13 +6,13 @@ library("stringr")
 library("plyr")
 
 ###Get list of files to process
-rawfiles <- list.files(path="", pattern="*.csv", )
+rawfiles <- list.files(path="", pattern="*.csv", ) # this the directory to your folder of raw Google data
 
 ####FUNCTION TO CLEAN AND SPLICE THE DATA####
 ###Google data is comma-separated values###
 clean.data <- function (fileList){
   for (i in 1:length(fileList)){
-    setwd("")
+    setwd("") # this the directory to your folder of raw Google data
     data <- read.csv(fileList[i], sep=",", header = F)
     pid <-file_path_sans_ext(fileList[i])
     colnames(data)<-c("variable.string", "values")
@@ -71,7 +71,8 @@ clean.data <- function (fileList){
     
     ####Write Spliced Data to File####
     ###Write this data to a separate folder so you know what difference between spliced data and raw data
-    setwd("")
+    ###We recommend creating a new folder includes "Spliced Data Files" in its name
+    setwd("") # this the directory to your folder of spliced Google data
     write.csv(sorted.data, paste(pid,".csv",sep=""), row.names=FALSE)  
   }
 }
@@ -80,7 +81,7 @@ clean.data <- function (fileList){
 clean.data(rawfiles)
 
 ####Make Merged File of ALL Spliced Data####
-setwd("")
+setwd("")  # this the directory to your folder of spliced Google data
 spliced.files <- list.files(pattern="*.csv", full.names = F)
 all.spliced.data <- lapply(spliced.files, function(.file){
   dat<-read.csv(.file, header=T)
@@ -90,5 +91,7 @@ all.spliced.data <- lapply(spliced.files, function(.file){
 })
 
 spliced.dataframe <- do.call(rbind, all.spliced.data)
-setwd("")
+setwd("") #We recommend writing your merged spliced data file in different folder than your spliced data folder
+##If you write your merged spliced data file to your spliced data folder and you have to rebuild your files, you will have duplicate entries
+##because the original merged spliced data file will be merged into your new merged spliced data file
 write.csv(spliced.dataframe, "all.spliced.data.csv", row.names=FALSE)
