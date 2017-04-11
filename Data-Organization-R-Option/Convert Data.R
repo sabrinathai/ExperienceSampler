@@ -49,8 +49,8 @@ complete.data<-c("id","start.time","end.time", unique.variable.names.unlist)
 spliced.dataframe$variable.name<-gsub("activity1","activity", spliced.dataframe$variable.name)
 spliced.dataframe$variable.name<-gsub("domain1","domain", spliced.dataframe$variable.name)
 spliced.dataframe$variable.name<-gsub("-","", spliced.dataframe$variable.name)
-###remove the .completed tag from the unique keys
-spliced.dataframe$unique.key<-gsub(".completed","", spliced.dataframe$unique.key)
+###remove the .completed tag from the unique keys for GOOGLE DATA ONLY
+#spliced.dataframe$unique.key<-gsub(".completed","", spliced.dataframe$unique.key)
 
 ####Save the Fixed Dataset####
 write.csv(spliced.dataframe, "all.spliced.data.fixed.csv", row.names=FALSE)
