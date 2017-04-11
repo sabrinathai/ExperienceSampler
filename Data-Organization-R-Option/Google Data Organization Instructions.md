@@ -64,8 +64,9 @@ This process is the same for both Server and Google Data.
  * Just input the row numbers.
 4. Starting from **line 49**, copy and paste the lines starting from **28**
  * This renames the variables in the **ACTUAL** spliced dataset
-5. If you wish to reorganize the columns in your dataset, uncomment **lines 92 - 103**.
+ **For Google Data**. Uncomment **line 53**. This line will remove the ".completed" tag from your unique keys. 
+5. If you wish to reorganize the columns in your dataset, uncomment **lines 96 - 107**.
  * Rearrange them by typing the variable names in the order you desire. Each variable name should appear between the quotation marks. 
-6. In **line 114**, set the directory for where you want your long form data to be saved. You can rename the long form data file in **line 115** if you want. 
+6. In **line 118**, set the directory for where you want your long form data to be saved. You can rename the long form data file in **line 119** if you want. 
 7. Run each line by itself in the **PREPARATION** section. Inspect the variable names carefully. 
 8. Highlight and run all the lines from the **CONVERSION** section to the end of the script. 
