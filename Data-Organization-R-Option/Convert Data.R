@@ -49,6 +49,8 @@ complete.data<-c("id","start.time","end.time", unique.variable.names.unlist)
 spliced.dataframe$variable.name<-gsub("activity1","activity", spliced.dataframe$variable.name)
 spliced.dataframe$variable.name<-gsub("domain1","domain", spliced.dataframe$variable.name)
 spliced.dataframe$variable.name<-gsub("-","", spliced.dataframe$variable.name)
+###remove the .completed tag from the unique keys
+spliced.dataframe$unique.key<-gsub(".completed","", spliced.dataframe$unique.key)
 
 ####Save the Fixed Dataset####
 write.csv(spliced.dataframe, "all.spliced.data.fixed.csv", row.names=FALSE)
@@ -56,6 +58,8 @@ write.csv(spliced.dataframe, "all.spliced.data.fixed.csv", row.names=FALSE)
 ####Read in the Fixed Spliced Dataset to convert####
 data.to.convert <- read.csv("all.spliced.data.fixed.csv", header=TRUE)
 
+###check to see if the spliced data is correct###
+View(data.to.convert)
 ####CONVERSION####
 #Handy function to strip prefixes from the column names (of cosmetic value only!) since the reshape process will add a prefix:
 #just run the first time you convert data
@@ -68,7 +72,7 @@ colnames_removing_prefix <- function(df, prefix) {
 
 ####Make dataframe with end times and unique keys####
 data.to.convert$find.end.times<-duplicated(data.to.convert[c("unique.key")], fromLast=TRUE)
-end.times <- data.frame(data.to.convert[data.to.convert$find.end.times == FALSE, c(1,2,4)])
+end.times <- data.frame(data.to.convert[data.to.convert$find.end.times == FALSE, c(1,3,5)])
 names(end.times)[names(end.times)=="timestamp"] <- "end.time"
 row.names(end.times)<-NULL
 
