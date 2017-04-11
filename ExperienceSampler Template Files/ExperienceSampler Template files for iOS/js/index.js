@@ -417,7 +417,7 @@ init: function() {
 	uniqueKey = new Date().getTime();
 	//The statement below states that if there is no participant id or if the participant id is left blank,
 	//ExperienceSampler would present the participant set up questions
-	if (localStore.participant_id === " " || !localStore.participant_id) {app.renderQuestion(-NUMSETUPQS);}  
+	if (localStore.participant_id === " " || !localStore.participant_id || localStore.participant_id == "undefined") {app.renderQuestion(-NUMSETUPQS);}  
 	//otherwise ExperienceSampler should just save the unique key and display the first question in survey questions  
 	else {
     	uniqueKey = new Date().getTime();
