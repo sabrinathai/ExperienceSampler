@@ -214,7 +214,6 @@ bindEvents: function() {
     document.addEventListener("deviceready", this.onDeviceReady, false);
     document.addEventListener("resume", this.onResume, false);
     document.addEventListener("pause", this.onPause, false);
-    document.addEventListener("receivedLocalNotification", onReceivedLocalNotification, false);
 },
 //these functions tell the app what to do at different stages of running
 onDeviceReady: function() {
@@ -337,7 +336,7 @@ renderQuestion: function(question_index) {
 				//If you want to force a response from your participants for 
 				//open-ended questions, you should uncomment this portion of the code
 // 				if (app.validateResponse($("textarea"))){
-//         		 	app.recordResponse($("textarea"), question_index, question.type);
+        		 	app.recordResponse($("textarea"), question_index, question.type);
 //                 } 
 //                 else {
 //                     alert("Please enter something.");
@@ -514,8 +513,8 @@ recordResponse: function(button, count) {
 //		//The code that preceded the app.renderQuestion function is just telling ExperienceSampler that the previous question should fade out
 //		//You can choose not implement this feature; however, we have made the question fade in feature a default function of ExperienceSampler (another shout-out to 
 //		//to Rebecca Grunberg for the great idea), and it looks more aesthetically pleasing if the fade in is accompanied by a fade out
-//     else if (count == X & response < 10 && phenomenonPresence == Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(A);}
-//     else if (count == X & response < 10 && phenomenonPresence == Z) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(B);}
+//     else if (count == X & response < 10 && phenomenonPresence == Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(A);});}
+//     else if (count == X & response < 10 && phenomenonPresence == Z) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(B);});}
 // 		//The next two statements illustrate the structure that all other question logic statements will follow
 // 		//They are similar to the ones regarding the absence and presence of the phenomenon, except this time the critical condition is the response chosen
 // 		//The first statement says if the question number is X and the response is less than Y, display question number Z
@@ -524,14 +523,14 @@ recordResponse: function(button, count) {
 // 		//The second statement, says if the question number is X and the response is not equal to Y, display question number A
 //		//Remember that to do question logic for one question, you need to have AT LEAST two conditional statements about what to do if the trigger response is chosen, AND
 // 		//what to do if the trigger response is NOT chosen. 
-//     else if (count == X && response == Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(Z);}
-//     else if (count == X && response !== Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(A);}
+//     else if (count == X && response == Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(Z);});}
+//     else if (count == X && response !== Y) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(A);});}
 
 
 // 		//Uncomment the "/*else*/" below only when customizing question logic (Stage 3), so that the app will just proceed to the next question in the JSON database
 // 		//DO NOT uncomment the "/*else*/" below when testing whether questions are being displayed in the right format (Stage 1) OR if you have no question logic 
 		//in your questionnaire
-	   /*else*/ if (count < surveyQuestions.length-1) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(count+1);}
+	   /*else*/ if (count < surveyQuestions.length-1) {$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(count+1);});}
 	   else {app.renderLastPage(lastPage[0], count);};
 },
     
@@ -821,7 +820,7 @@ snoozeNotif:function() {
 //                                          autoCancel: true,
 //                                          date: snoozeDate,
 //                                          });
-}
+},
 //This function forces participants to respond to an open-ended question if they have left it blank
 validateResponse: function(data){
         var text = data.val();
