@@ -1,10 +1,10 @@
-#Checking Compliance
+# Checking Compliance
 We have created a script using Google script to check participant’s compliance at the end of each day. The script can be downloaded 
 from this [page](https://script.google.com/d/1I-Uo_phZEM94YYvjWMwZPi5hGG3V3YwBSm4yOabD4Q-t0bvntCiHNw-i/edit?usp=sharing). You can also find it on [GitHub](https://github.com/sabrinathai/ExperienceSampler/blob/master/Google-Script-Participant-Compliance/Google%20Script%20Compliance%20Checker.js). Below 
 we will outline how to implement the compliance checker. This script checks each participant’s data sheet and determines the number of 
 entirely completed questionnaires at the end of each day. The script will then record this to the Compliance Google spreadsheet. 
 
-##The Script
+## The Script
 Now, we will briefly describe what each of the functions within the script does so that you understand how the script works. The 
 compliance checker script performs two primary functions. 
 The first function splices the variable name into its three components: 
@@ -43,7 +43,7 @@ greater detail [here](https://github.com/sabrinathai/ExperienceSampler/blob/mast
 You can see an example of a compliance sheet on [here](https://docs.google.com/spreadsheets/d/16VZAKlW0thWRyWwwxvUrq2xfjSJHgWKTZN7oDq5gDvw/edit?usp=sharing). 
 * In both cases, **X** is the number of days of data collection. 
 
-###Create Compliance Script
+### Create Compliance Script
 Next, you will have to set up the script. 
 
 1. Go to [Google Script](https://www.google.com/script/start/) and click on `Start Scripting`. 
