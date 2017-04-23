@@ -1,4 +1,4 @@
-#Implementing the Google Script Data Collector
+# Implementing the Google Script Data Collector
 
 For the Google option, you will need to go to Google Drive and create three spreadsheets in Google Sheets. 
 One sheet will be used to store the raw data (`database`), one sheet will be used to store spliced data (`splicedDataset`), 
