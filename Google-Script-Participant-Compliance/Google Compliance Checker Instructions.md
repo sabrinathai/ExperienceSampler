@@ -31,8 +31,8 @@ time-based (e.g., at a certain time each day). Because the splice data function 
 has been collected on a given day, we would advise you to run this function one hour before the compliance checking 
 (i.e., `checkCompletedSurveys`) function. 
 
-##Implementing the script. 
-###Create Compliance Spreadsheet
+## Implementing the script. 
+### Create Compliance Spreadsheet
 First, you will need to create your compliance spreadsheet. This spreadsheet should have the following headers in this order: 
 **Participant ID**, **Participant’s Name**, **Participant Email**, **App Installation Day**, **First Day of Data Collection**, 
 **Day After Last Day of Data Collection**, **Compliance 1**, **Compliance Check Date 1**, **Compliance 2**, **Compliance Check Date 2**, 
