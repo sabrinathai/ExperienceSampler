@@ -427,7 +427,7 @@ init: function() {
 },
   
 /* Record User Responses */  
-recordResponse: function(button, count) {
+recordResponse: function(button, count, type) {
 		//uncomment up to "localStore[uniqueRecord] = response;" to test whether app is recording and sending data correctly (Stage 2 of Customization)
 		//This tells ExperienceSampler how to save data from the various formats
     //Record date (create new date object)
