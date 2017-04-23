@@ -24,7 +24,7 @@ You are now ready the test and potentially deploy the data storage web app.
 6.  Then click `Deploy`. Copy the URL that appears below `Current web app URL`. You need this URL to input into your ExperienceSampler 
 code so that the app knows where to send the data. 
 
-##saveData functions
+## saveData functions
 Next, you will need to tell the ExperienceSampler where to send the data by locating the saveData 
 and saveDataLastPage functions in the `index.js` file and copying and pasting the URL for the Google web app. In these functions, the only 
 other property that you should double-check is the `type` property, which should be set to `get`. The `type` property indicates how the 
@@ -39,7 +39,7 @@ sent successfully. We chose to only notify participants when they would naturall
 have completed the survey. If you choose not to notify participants, then you only need to implement the saveData function; however, 
 we would advise you to use the `saveDataLastPage` function during testing to ensure that your data is being sent and saved correctly. 
 
-##ExperienceSampler HTML file
+## ExperienceSampler HTML file
 Once you have set up your server or your Google database, you will need to copy and paste the URL of your Google Data Collector Script into the `index.html` file in your ExperienceSampler file. This will let ExperienceSampler know that your 
 Data Collector has permission to access the data, and the Data Collector is not doing anything malicious. If you are using the Google 
 option, you will need to copy two URLs into the `index.html` file. This is the only change you have to make to the `index.html` file. 
