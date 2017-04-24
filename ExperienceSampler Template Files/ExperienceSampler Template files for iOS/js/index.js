@@ -825,12 +825,10 @@ snoozeNotif:function() {
 //     var now = new Date().getTime(), snoozeDate = new Date(now + X*1000);
 //     var id = '99';
 //     cordova.plugins.notification.local.schedule({
-//                                          icon: 'ic_launcher',
 //                                          id: id,
 //                                          title: 'Title of message',
-//                                          message: 'Snooze message',
-//                                          autoCancel: true,
-//                                          date: snoozeDate,
+//                                          text: 'Snooze message',
+//                                          at: snoozeDate,
 //                                          });
 },
 //This function forces participants to respond to an open-ended question if they have left it blank
