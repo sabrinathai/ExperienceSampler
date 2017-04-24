@@ -816,9 +816,8 @@ snoozeNotif:function() {
 //                                          icon: 'ic_launcher',
 //                                          id: id,
 //                                          title: 'Title of message',
-//                                          message: 'Snooze message',
-//                                          autoCancel: true,
-//                                          date: snoozeDate,
+//                                          text: 'Snooze message',
+//                                          at: snoozeDate,
 //                                          });
 },
 //This function forces participants to respond to an open-ended question if they have left it blank
