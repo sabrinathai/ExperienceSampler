@@ -577,11 +577,12 @@ saveDataLastPage:function() {
 //            data: storage_save,
 //            crossDomain: true,
 //            success: function (result) {
-//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
+//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey, pause_time=localStore.pause_time;
 //            localStore.clear();
 //            localStore.participant_id = pid;
 //            localStore.snoozed = snoozed;
-// 			  localStore.uniqueKey = uniqueKey;
+// 		localStore.uniqueKey = uniqueKey;
+// 		localStore.pause_time = pause_time;
 //            $("#question").html("<h3>Your responses have been recorded. Thank you for completing this survey.</h3>");
 //            },
 
@@ -605,11 +606,12 @@ saveData:function() {
 //            data: storage_save,
 //            crossDomain: true,
 //            success: function (result) {
-//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
+//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey, pause_time=localStore.pause_time;
 //            localStore.clear();
 //            localStore.participant_id = pid;
 //            localStore.snoozed = snoozed;
-// 			  localStore.uniqueKey = uniqueKey;
+// 		localStore.uniqueKey = uniqueKey;
+// 		localStore.pause_time = pause_time;
 //            },
 //            error: function (request, error) {console.log(error);}
 //            });
