@@ -91,7 +91,7 @@ function sendComplianceEmails() {
                       "<br><br>" + "Thank you again for participating in our research! We greatly appreciate it!" + "<br><br>" + 
                         "Best wishes," + "<br>" + "Sabrina" + "<br><br>" + "Sabrina Thai" + "<br>" + "Department of Psychology"+ "<br>" + "University of Toronto"; 
             var subject = "Yesterday's Smartphone Survey";
-            MailApp.sendEmail(emailAddress, subject, messageTxt, {name: "Team Study Survey Reminder"/*, htmlBody: messageHTML*/});
+            MailApp.sendEmail(emailAddress, subject, messageTxt, {name: "Daily Survey Study Reminder"/*, htmlBody: messageHTML*/});
             complianceSheet.getRange(startRow + i, complianceEmailColumn).setValue(sent);
             }        
           }
