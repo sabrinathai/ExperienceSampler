@@ -25,10 +25,10 @@ clean.data <- function (fileList){
     ####Splice the Data####
     values <- data.frame(data.clean$values)
     variable.string <- data.frame(data.clean$variable.string)
-    spliced.variable.key<-data.frame(variable.string, do.call(rbind, str_split(variable.string$data.clean.variable.string, "_", n=8)))
+    spliced.variable.key<-data.frame(variable.string, do.call(rbind, str_split(variable.string$data.clean.variable.string, "_", n=9)))
     spliced.variable.key$data.clean.variable.string<-NULL
     spliced.variable.key.merged<-data.frame(list(spliced.variable.key,values))
-    colnames(spliced.variable.key.merged)<-c("unique.key","variable.name","year","month","date","hour","minute","second", "values")  
+    colnames(spliced.variable.key.merged)<-c("unique.key","variable.name","year","month","date","hour","minute","second","millisecond", "values")  
     
     ####Convert Timestamps####
     #Timestamps must have leading 0s so they are sorted correctly.###
@@ -44,6 +44,9 @@ clean.data <- function (fileList){
     spliced.variable.key.merged$minute<-str_pad(spliced.variable.key.merged$minute, 2, side=c("left"), pad="0")
     #seconds
     spliced.variable.key.merged$second<-str_pad(spliced.variable.key.merged$second, 2, side=c("left"), pad="0")
+    #milliseconds
+    spliced.variable.key.merged$millisecond<-str_pad(spliced.variable.key.merged$millisecond, 3, side=c("left"), pad="0")
+
     
     #merge columns together for updated date column
     spliced.data<-unite(spliced.variable.key.merged, "timestamp", year, month, date, hour, minute, second, sep="_", remove=TRUE)
