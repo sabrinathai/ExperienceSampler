@@ -502,7 +502,9 @@ recordResponse: function(button, count, type) {
 //		//The line below states that if the app is on the last question of participant setup, it should schedule all the notifications
 //		//then display the default end of survey message, and then record which notifications have been scheduled.
 //		//You will test local notifications in Stage 4 of customizing the app
-//     if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduledNotifs();}
+//		********IF YOU HAVE NO QUESTION LOGIC BUT HAVE SCHEDULED NOTIFICATIONS, YOU NEED TO UNCOMMENT THE FOLLOWING LINE
+//		TO EXECUTE THE scheduleNotifs() FUNCTION********
+//     		if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduledNotifs();}
 //     //Identify the next question to populate the view
 //		//the next statement is about the snooze function
 // 		//This statement says that if the participant says they are currently unable to complete the questionnaire now,
