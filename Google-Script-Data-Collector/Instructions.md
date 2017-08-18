@@ -26,9 +26,7 @@ code so that the app knows where to send the data.
 
 ## saveData functions
 Next, you will need to tell the ExperienceSampler where to send the data by locating the saveData 
-and saveDataLastPage functions in the `index.js` file and copying and pasting the URL for the Google web app. In these functions, the only 
-other property that you should double-check is the `type` property, which should be set to `get`. The `type` property indicates how the 
-data will be sent to the web app. 
+and saveDataLastPage functions in the `index.js` file and copying and pasting the URL for the Google web app.  
 
 The only difference between the `saveData` and `saveDataLastPage` functions is that participants will be notified whether the data was 
 sent to the server successfully when the `saveDataLastPage` function is executed but not when the `saveData` function is executed. These 
