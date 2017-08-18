@@ -572,9 +572,7 @@ saveDataLastPage:function() {
 // 	var storage = JSON.stringify(localStore);
 // 	var storage_save=JSON.parse(storage);
 //     $.ajax({
-//			//If you are using the google option, the type should be 'get'
-//			//If you are using the server option, the type should be 'post'
-//            type: 'post' or 'get',
+//            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
 //            data: storage_save,
 //            crossDomain: true,
@@ -601,9 +599,7 @@ saveData:function() {
 // 	var storage = JSON.stringify(localStore);
 // 	var storage_save=JSON.parse(storage);	
 //     $.ajax({
-//			//If you are using the google option, the type should be 'get'
-//			//If you are using the server option, the type should be 'post'
-//            type: 'post' or 'get',
+//            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
 //            data: storage_save,
 //            crossDomain: true,
