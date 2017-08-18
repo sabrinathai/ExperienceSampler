@@ -567,9 +567,7 @@ sampleParticipant: function() {
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveDataLastPage:function() {
 //     $.ajax({
-//			//If you are using the google option, the type should be 'get'
-//			//If you are using the server option, the type should be 'post'
-//            type: 'post' or 'get',
+//            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
 //            data: localStore,
 //            crossDomain: true,
@@ -594,9 +592,7 @@ saveDataLastPage:function() {
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveData:function() {
 //     $.ajax({
-//			//If you are using the google option, the type should be 'get'
-//			//If you are using the server option, the type should be 'post'
-//            type: 'post' or 'get',
+//            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
 //            data: localStore,
 //            crossDomain: true,
