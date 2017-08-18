@@ -1,4 +1,4 @@
-function doGet(e) {
+function doPost(e) {
   var lock = LockService.getPublicLock();
   lock.waitLock(30000);
   try {
