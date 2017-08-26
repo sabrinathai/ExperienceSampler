@@ -49,7 +49,7 @@ clean.data <- function (fileList){
 
     
     #merge columns together for updated date column
-    spliced.data<-unite(spliced.variable.key.merged, "timestamp", year, month, date, hour, minute, second, sep="_", remove=TRUE)
+    spliced.data<-unite(spliced.variable.key.merged, "timestamp", year, month, date, hour, minute, second, millisecond, sep="_", remove=TRUE)
     colnames(spliced.data)<-c("unique.key", "variable.name", "timestamp", "values")
     
     
