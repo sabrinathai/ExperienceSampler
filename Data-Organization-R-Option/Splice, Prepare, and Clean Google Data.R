@@ -13,7 +13,7 @@ rawfiles <- list.files(path="", pattern="*.csv", ) # this the directory to your 
 clean.data <- function (fileList){
   for (i in 1:length(fileList)){
     setwd("") # this the directory to your folder of raw Google data
-    data <- read.csv(fileList[i], sep=",", header = F)
+    data <- read.csv(fileList[i], header = F)
     pid <-file_path_sans_ext(fileList[i])
     colnames(data)<-c("variable.string", "values")
     ####Remove Duplicate Rows from Dataset####
