@@ -186,7 +186,7 @@ var NUMSETUPQS = participantSetup.length;
 var SNOOZEQ = 0;
 //This section of code creates the templates for all the question formats
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
-var questionTextTmpl = "{{questionPrompt}}";
+var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
 var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
