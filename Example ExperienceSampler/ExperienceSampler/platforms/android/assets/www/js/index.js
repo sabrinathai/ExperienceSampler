@@ -1,4 +1,4 @@
-/*EXPERIENCESAMPLER LICENSE
+/*ExperienceSampler License
 
 The MIT License (MIT)
 
@@ -22,6 +22,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+
 /* activate localStorage */
 var localStore = window.localStorage;
 /* surveyQuestion Model (This time, written in "JSON" format to interface more cleanly with Mustache) */
@@ -257,7 +258,7 @@ var participantSetup = [
 var NUMSETUPQS = participantSetup.length;
 var SNOOZEQ = 0;
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
-var questionTextTmpl = "{{questionPrompt}}";
+var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
 var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
@@ -265,7 +266,7 @@ var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>
 var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var datePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="date"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
 var dateAndTimePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY-HH-mm" data-template="D MMM YYYY  HH:mm" name="datetime24"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
-var timePickerTmpl = '<li><input id="{{id}}" data-format="HH:mm" data-template="HH : mm" name="time"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name"});});</script>';
+var timePickerTmpl = "<li><input id ='{{id}}' type='time'></input><br /><br /></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var lastPageTmpl = "<h3>{{message}}</h3>";
 var uniqueKey; 
 var name;
@@ -413,10 +414,12 @@ renderQuestion: function(question_index) {
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
         	var time, timeSplit, variableName = [], timeArray = [];
         	$("#question ul li button").click(function(){
-        		time = $("input").combodate('getValue');
-        		timeArray.push(question.variableName);
-        		timeArray.push(time);
-        		app.recordResponse(String(timeArray), question_index, question.type);
+				if (app.validateTime($("input"))){
+        		 	app.recordResponse($("input"), question_index, question.type);
+                } 
+                else {
+                    alert("Please enter a time.");
+                }
         	});
         	break;	        		                 
         }
@@ -434,8 +437,8 @@ renderLastPage: function(pageData, question_index) {
     }
     else {
     	var datestamp = new Date();
-    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
-    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds] = 1;	
+    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
+    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds] = 1;	
     	app.saveDataLastPage();
     }
 },
@@ -443,7 +446,7 @@ renderLastPage: function(pageData, question_index) {
 recordResponse: function(button, count, type) {
     //Record date (create new date object)
     var datestamp = new Date();
-    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
+    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
     //Record value of text field
     var response, currentQuestion, uniqueRecord;
     if (type == 'text') {
@@ -486,12 +489,12 @@ recordResponse: function(button, count, type) {
      	currentQuestion = button.split(",",1);
     }
     else if (type == 'timePicker') {
-		response = button.split(/,(.+)/)[1];
-     	currentQuestion = button.split(",",1);
+    	response = button.val();
+        currentQuestion = button.attr('id').slice(0,-1);
     }
     if (count == 6) {name = response;}
     if (count <= -1) {uniqueRecord = currentQuestion;}
-    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds;}
+    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds;}
 //     //Save this to local storage
     localStore[uniqueRecord] = response;
     //Identify the next question to populate the view
@@ -525,6 +528,9 @@ init: function() {
     else {
     	uniqueKey = new Date().getTime();
         localStore.uniqueKey = uniqueKey;
+	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;	
         app.renderQuestion(0);
     }
     localStore.snoozed = 0;
@@ -535,6 +541,9 @@ sampleParticipant: function() {
     var current_time = current_moment.getTime();
     if ((current_time - localStore.pause_time) > 600000 || localStore.snoozed == 1) {
         uniqueKey = new Date().getTime();
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;		    
         localStore.snoozed = 0;
         app.renderQuestion(0);
     }
@@ -695,5 +704,14 @@ validateResponse: function(data){
         } else { 
         	return true;
         }
-    },      
+    }, 
+validateTime: function(data){
+	var time = data.val();
+	if (time=== ""){
+		return false	
+	}
+	else {
+		return true
+	}
+}       
 };

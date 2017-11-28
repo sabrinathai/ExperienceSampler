@@ -1,0 +1,72 @@
+{
+  "_from": "cordova-plugin-app-event",
+  "_id": "cordova-plugin-app-event@1.2.1",
+  "_inBundle": false,
+  "_integrity": "sha1-DuuxQTKqQ7suXAgamr29l8otgTI=",
+  "_location": "/cordova-plugin-app-event",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-app-event",
+    "name": "cordova-plugin-app-event",
+    "escapedName": "cordova-plugin-app-event",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/",
+    "/de.appplant.cordova.plugin.local-notification"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-app-event/-/cordova-plugin-app-event-1.2.1.tgz",
+  "_shasum": "0eebb14132aa43bb2e5c081a9abdbd97ca2d8132",
+  "_spec": "cordova-plugin-app-event",
+  "_where": "/Users/sabrinathai/Documents/GitHub/ExperienceSampler/Example ExperienceSampler/ExperienceSampler",
+  "author": {
+    "name": "Sebastián Katzer"
+  },
+  "bugs": {
+    "url": "https://github.com/katzer/cordova-plugin-app-event/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-app-event",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "deprecated": false,
+  "description": "Broadcasts UIApplicationDelegate events",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=3.6.0"
+    }
+  ],
+  "homepage": "https://github.com/katzer/cordova-plugin-app-event#readme",
+  "keywords": [
+    "appplant",
+    "UIApplicationDelegate",
+    "didRegisterUserNotificationSettings",
+    "didReceiveLocalNotification",
+    "didFinishLaunchingWithOptions",
+    "cordova",
+    "ecosystem:cordova"
+  ],
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "name": "cordova-plugin-app-event",
+  "platforms": [
+    "ios"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katzer/cordova-plugin-app-event.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.1"
+}

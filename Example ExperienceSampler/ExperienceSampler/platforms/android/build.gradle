@@ -17,41 +17,37 @@
        under the License.
 */
 
-// GENERATED FILE! DO NOT EDIT!
-
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
     }
 
     // Switch the Android Gradle plugin version requirement depending on the
     // installed version of Gradle. This dependency is documented at
     // http://tools.android.com/tech-docs/new-build-system/version-compatibility
     // and https://issues.apache.org/jira/browse/CB-8143
-    if (gradle.gradleVersion >= "2.2") {
-        dependencies {
-            classpath 'com.android.tools.build:gradle:1.0.0+'
-        }
-    } else if (gradle.gradleVersion >= "2.1") {
-        dependencies {
-            classpath 'com.android.tools.build:gradle:0.14.0+'
-        }
-    } else {
-        dependencies {
-            classpath 'com.android.tools.build:gradle:0.12.0+'
-        }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
 // Allow plugins to declare Maven dependencies via build-extras.gradle.
-repositories {
-    mavenCentral()
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url "https://maven.google.com"
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
+    gradleVersion = '2.14.1'
 }
 
 // Configuration properties. Set these via environment variables, build-extras.gradle, or gradle.properties.
@@ -172,10 +168,16 @@ android {
     }
 
     defaultConfig {
-        versionCode cdvVersionCode ?: Integer.parseInt("" + privateHelpers.extractIntFromManifest("versionCode") + "0")
+        versionCode cdvVersionCode ?: new BigInteger("" + privateHelpers.extractIntFromManifest("versionCode"))
+        applicationId privateHelpers.extractStringFromManifest("package")
+
         if (cdvMinSdkVersion != null) {
             minSdkVersion cdvMinSdkVersion
         }
+    }
+
+    lintOptions {
+      abortOnError false;
     }
 
     compileSdkVersion cdvCompileSdkVersion
@@ -184,13 +186,13 @@ android {
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
         productFlavors {
             armv7 {
-                versionCode cdvVersionCode ?: defaultConfig.versionCode + 2
+                versionCode defaultConfig.versionCode*10 + 2
                 ndk {
                     abiFilters "armeabi-v7a", ""
                 }
             }
             x86 {
-                versionCode cdvVersionCode ?: defaultConfig.versionCode + 4
+                versionCode defaultConfig.versionCode*10 + 4
                 ndk {
                     abiFilters "x86", ""
                 }
@@ -201,7 +203,12 @@ android {
                 }
             }
         }
-    } else if (!cdvVersionCode) {
+    }
+    /*
+
+    ELSE NOTHING! DON'T MESS WITH THE VERSION CODE IF YOU DON'T HAVE TO!
+
+    else if (!cdvVersionCode) {
       def minSdkVersion = cdvMinSdkVersion ?: privateHelpers.extractIntFromManifest("minSdkVersion")
       // Vary versionCode by the two most common API levels:
       // 14 is ICS, which is the lowest API level for many apps.
@@ -212,6 +219,7 @@ android {
         defaultConfig.versionCode += 8
       }
     }
+    */
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_6
@@ -243,8 +251,8 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
-    debugCompile project(path: "CordovaLib", configuration: "debug")
-    releaseCompile project(path: "CordovaLib", configuration: "release")
+    debugCompile(project(path: "CordovaLib", configuration: "debug"))
+    releaseCompile(project(path: "CordovaLib", configuration: "release"))
     compile "com.android.support:support-v4:+"
     // SUB-PROJECT DEPENDENCIES END
 }
@@ -263,7 +271,7 @@ def promptForReleaseKeyPassword() {
 
 gradle.taskGraph.whenReady { taskGraph ->
     taskGraph.getAllTasks().each() { task ->
-        if (task.name == 'validateReleaseSigning') {
+        if (task.name == 'validateReleaseSigning' || task.name == 'validateSigningRelease') {
             promptForReleaseKeyPassword()
         }
     }

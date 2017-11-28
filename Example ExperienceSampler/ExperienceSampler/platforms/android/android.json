@@ -1,0 +1,217 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "res/xml/config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Notification\"><param name=\"android-package\" value=\"org.apache.cordova.dialogs.Notification\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"SplashScreen\"><param name=\"android-package\" value=\"org.apache.cordova.splashscreen.SplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Vibration\"><param name=\"android-package\" value=\"org.apache.cordova.vibration.Vibration\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"LocalNotification\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.localnotification.LocalNotification\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "AndroidManifest.xml": {
+        "parents": {
+          "/manifest/application": [
+            {
+              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.TriggerReceiver\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.ClearReceiver\" />",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:exported=\"false\" android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.localnotification.ClickActivity\" android:theme=\"@android:style/Theme.NoDisplay\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.notification.TriggerReceiver\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.notification.ClearReceiver\" />",
+              "count": 1
+            },
+            {
+              "xml": "<receiver android:exported=\"false\" android:name=\"de.appplant.cordova.plugin.localnotification.RestoreReceiver\"><intent-filter><action android:name=\"android.intent.action.BOOT_COMPLETED\" /></intent-filter></receiver>",
+              "count": 1
+            },
+            {
+              "xml": "<activity android:exported=\"false\" android:launchMode=\"singleInstance\" android:name=\"de.appplant.cordova.plugin.notification.ClickActivity\" android:theme=\"@android:style/Theme.NoDisplay\" />",
+              "count": 1
+            }
+          ],
+          "/manifest": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.VIBRATE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-console": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.experienceSampler.exampleExperienceSamplerAndroid"
+    },
+    "cordova-plugin-app-event": {
+      "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSamplerAndroid"
+    },
+    "de.appplant.cordova.plugin.local-notification": {
+      "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSamplerAndroid"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-whitelist.whitelist",
+      "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+      "pluginId": "cordova-plugin-whitelist",
+      "runs": true
+    },
+    {
+      "id": "cordova-plugin-console.logger",
+      "file": "plugins/cordova-plugin-console/www/logger.js",
+      "pluginId": "cordova-plugin-console",
+      "clobbers": [
+        "cordova.logger"
+      ]
+    },
+    {
+      "id": "cordova-plugin-console.console",
+      "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+      "pluginId": "cordova-plugin-console",
+      "clobbers": [
+        "console"
+      ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification",
+      "file": "plugins/cordova-plugin-dialogs/www/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-dialogs.notification_android",
+      "file": "plugins/cordova-plugin-dialogs/www/android/notification.js",
+      "pluginId": "cordova-plugin-dialogs",
+      "merges": [
+        "navigator.notification"
+      ]
+    },
+    {
+      "id": "cordova-plugin-device.device",
+      "file": "plugins/cordova-plugin-device/www/device.js",
+      "pluginId": "cordova-plugin-device",
+      "clobbers": [
+        "device"
+      ]
+    },
+    {
+      "id": "cordova-plugin-splashscreen.SplashScreen",
+      "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+      "pluginId": "cordova-plugin-splashscreen",
+      "clobbers": [
+        "navigator.splashscreen"
+      ]
+    },
+    {
+      "id": "cordova-plugin-vibration.notification",
+      "file": "plugins/cordova-plugin-vibration/www/vibration.js",
+      "pluginId": "cordova-plugin-vibration",
+      "merges": [
+        "navigator.notification",
+        "navigator"
+      ]
+    },
+    {
+      "id": "de.appplant.cordova.plugin.local-notification.LocalNotification",
+      "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification.js",
+      "pluginId": "de.appplant.cordova.plugin.local-notification",
+      "clobbers": [
+        "cordova.plugins.notification.local",
+        "plugin.notification.local"
+      ]
+    },
+    {
+      "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Core",
+      "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-core.js",
+      "pluginId": "de.appplant.cordova.plugin.local-notification",
+      "clobbers": [
+        "cordova.plugins.notification.local.core",
+        "plugin.notification.local.core"
+      ]
+    },
+    {
+      "id": "de.appplant.cordova.plugin.local-notification.LocalNotification.Util",
+      "file": "plugins/de.appplant.cordova.plugin.local-notification/www/local-notification-util.js",
+      "pluginId": "de.appplant.cordova.plugin.local-notification",
+      "merges": [
+        "cordova.plugins.notification.local.core",
+        "plugin.notification.local.core"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-whitelist": "1.0.0",
+    "cordova-plugin-console": "1.0.1",
+    "cordova-plugin-dialogs": "1.1.1",
+    "cordova-plugin-device": "1.0.1",
+    "cordova-plugin-splashscreen": "2.1.0",
+    "cordova-plugin-vibration": "1.2.0",
+    "cordova-plugin-app-event": "1.2.1",
+    "de.appplant.cordova.plugin.local-notification": "0.8.5"
+  }
+}

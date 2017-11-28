@@ -1,0 +1,19 @@
+{
+  "name": "com.experiencesampler.exampleexperiencesamplerandroid",
+  "version": "0.0.1",
+  "displayName": "ExperienceSampler",
+  "cordova": {
+    "platforms": [
+      "android"
+    ],
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "de.appplant.cordova.plugin.local-notification": {}
+    }
+  },
+  "dependencies": {
+    "cordova-android": "~6.3.0",
+    "cordova-plugin-whitelist": "1",
+    "de.appplant.cordova.plugin.local-notification": "~0.8.5"
+  }
+}

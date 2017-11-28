@@ -1,4 +1,4 @@
-/* EXPERIENCESAMPLER LICENSE
+/* ExperienceSampler License
 
 The MIT License (MIT)
 
@@ -96,7 +96,10 @@ input[type=range]::-webkit-slider-thumb {
 input[type=range]:focus {
 	outine:none;
 }
+input[type=time]{
+  	font-size:1.00em;
 
+}
 input[type=range]:focus::-webkit-slider-runnable-track {
 	background: #FFFFFF;
 }
