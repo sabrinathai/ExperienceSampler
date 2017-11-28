@@ -265,7 +265,7 @@ var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>
 var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var datePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="date"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
 var dateAndTimePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY-HH-mm" data-template="D MMM YYYY  HH:mm" name="datetime24"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
-var timePickerTmpl = '<li><input id="{{id}}" data-format="HH:mm" data-template="HH : mm" name="time"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name"});});</script>';
+var timePickerTmpl = "<li><input id ='{{id}}' type='time'></input><br /><br /></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var lastPageTmpl = "<h3>{{message}}</h3>";
 var uniqueKey;
 var name;
@@ -413,10 +413,12 @@ renderQuestion: function(question_index) {
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
         	var time, timeSplit, variableName = [], timeArray = [];
         	$("#question ul li button").click(function(){
-        		time = $("input").combodate('getValue');
-        		timeArray.push(question.variableName);
-        		timeArray.push(time);
-        		app.recordResponse(String(timeArray), question_index, question.type);
+				if (app.validateTime($("input"))){
+        		 	app.recordResponse($("input"), question_index, question.type);
+                } 
+                else {
+                    alert("Please enter a time.");
+                }
         	});
         	break;	        		                 
         }
@@ -434,8 +436,8 @@ renderLastPage: function(pageData, question_index) {
     }
     else {
     	var datestamp = new Date();
-    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
-    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds] = 1;	
+    	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
+    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds] = 1;	
     	app.saveDataLastPage();
     }
 },
@@ -443,7 +445,7 @@ renderLastPage: function(pageData, question_index) {
 recordResponse: function(button, count, type) {
     //Record date (create new date object)
     var datestamp = new Date();
-    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds();
+    var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
     //Record value of text field
     var response, currentQuestion, uniqueRecord;
     if (type == 'text') {
@@ -486,12 +488,12 @@ recordResponse: function(button, count, type) {
      	currentQuestion = button.split(",",1);
     }
     else if (type == 'timePicker') {
-		response = button.split(/,(.+)/)[1];
-     	currentQuestion = button.split(",",1);
+    	response = button.val();
+        currentQuestion = button.attr('id').slice(0,-1);
     }
     if (count == 6) {name = response;}
     if (count <= -1) {uniqueRecord = currentQuestion;}
-    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds;}
+    else {uniqueRecord = uniqueKey + "_" + currentQuestion + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds;}
 //     //Save this to local storage
     localStore[uniqueRecord] = response;
     //Identify the next question to populate the view
@@ -515,8 +517,9 @@ recordResponse: function(button, count, type) {
     /* Prepare for Resume and Store Data */
     /* Time stamps the current moment to determine how to resume */
 pauseEvents: function() {
-    localStore.pause_time = new Date().getTime();
-    app.saveData();
+	localStore.pause_time = new Date().getTime();
+	localStore.uniqueKey = uniqueKey;
+	app.saveData();
 }, 
     /* Initialize the whole thing */
 init: function() {
@@ -525,6 +528,9 @@ init: function() {
     else {
     	uniqueKey = new Date().getTime();
         localStore.uniqueKey = uniqueKey;
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;		    
         app.renderQuestion(0);
     }
     localStore.snoozed = 0;
@@ -535,6 +541,9 @@ sampleParticipant: function() {
     var current_time = current_moment.getTime();
     if ((current_time - localStore.pause_time) > 600000 || localStore.snoozed == 1) {
         uniqueKey = new Date().getTime();
+    	var startTime = new Date(uniqueKey);
+    	var syear = startTime.getFullYear(), smonth = startTime.getMonth(), sday=startTime.getDate(), shours=startTime.getHours(), sminutes=startTime.getMinutes(), sseconds=startTime.getSeconds(), smilliseconds=startTime.getMilliseconds();
+    	localStore[uniqueKey + "_" + "startTime"  + "_" + syear + "_" + smonth + "_" + sday + "_" + shours + "_" + sminutes + "_" + sseconds + "_" + smilliseconds] = 1;		    
         localStore.snoozed = 0;
         app.renderQuestion(0);
     }
@@ -544,10 +553,12 @@ sampleParticipant: function() {
     app.saveData();
 },  
 saveData:function() {
+	var storage = JSON.stringify(localStore);
+	var storage_save=JSON.parse(storage);
     $.ajax({
            type: 'get',
            url: 'https://script.google.com/macros/s/AKfycbzzbp0437BkTqx95W9THF9JhWcydzn-K-FJTbwIHF23-S0JbDXG/exec',
-           data: localStore,
+           data: storage_save,
            crossDomain: true,
            success: function (result) {
            var pid = localStore.participant_id, snoozed = localStore.snoozed, 
@@ -561,11 +572,13 @@ saveData:function() {
            error: function (request, error) {console.log(error);},
            });
 },
-saveDataLastPage:function() {
+saveDataLastPage:function() {	
+	var storage = JSON.stringify(localStore);
+	var storage_save=JSON.parse(storage);
     $.ajax({
            type: 'get',
            url: 'https://script.google.com/macros/s/AKfycbzzbp0437BkTqx95W9THF9JhWcydzn-K-FJTbwIHF23-S0JbDXG/exec',
-           data: localStore,
+           data: storage_save,
            crossDomain: true,
            success: function (result) {	
            		var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
@@ -598,6 +611,7 @@ scheduleNotifs:function() {
 	var weekdayWakeTime = localStore.weekdayWakeTime.split(":");
 	var dateObject = new Date();
     var now = dateObject.getTime(); 
+    var notifs=[];
     var dayOfWeek = dateObject.getDay(), currentHour = dateObject.getHours(), currentMinute = dateObject.getMinutes();
    	for (i = 0; i < 7; i ++) {
    		var alarmDay = dayOfWeek + 1 + i; 
@@ -644,7 +658,7 @@ scheduleNotifs:function() {
    			interval3 = interval2 + (parseInt(Math.round(Math.random()*randomDiaryLag)+minDiaryLag));
    			interval4 = interval3 + (parseInt(Math.round(Math.random()*randomDiaryLag)+minDiaryLag));
    			interval5 = interval4 + (parseInt(Math.round(Math.random()*randomDiaryLag)+minDiaryLag));
-   			interval6 = dinnerInterval + (parseInt(Math.round(Math.random()*randomDiaryLag)+minDiaryLagAfterDinner));
+   			interval6 = dinnerInterval + (parseInt(Math.round(Math.random()*randomDiaryLag)+minDiaryLag));
    			
    			a = 101+(parseInt(i)*100);
             b = 102+(parseInt(i)*100);
@@ -696,5 +710,14 @@ validateResponse: function(data){
         } else { 
         	return true;
         }
-    },      
+    }, 
+validateTime: function(data){
+	var time = data.val();
+	if (time=== ""){
+		return false	
+	}
+	else {
+		return true
+	}
+}             
 };

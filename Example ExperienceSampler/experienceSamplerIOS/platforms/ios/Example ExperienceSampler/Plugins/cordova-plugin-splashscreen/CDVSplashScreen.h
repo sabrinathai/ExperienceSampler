@@ -23,6 +23,7 @@
 typedef struct {
     BOOL iPhone;
     BOOL iPad;
+    BOOL iPhone4;
     BOOL iPhone5;
     BOOL iPhone6;
     BOOL iPhone6Plus;
@@ -35,6 +36,7 @@ typedef struct {
     UIImageView* _imageView;
     NSString* _curImageName;
     BOOL _visible;
+    BOOL _destroyed;
 }
 
 - (void)show:(CDVInvokedUrlCommand*)command;

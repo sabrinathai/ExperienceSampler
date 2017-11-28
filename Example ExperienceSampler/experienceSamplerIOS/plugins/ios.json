@@ -1,101 +1,34 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
     },
-    "config_munge": {
-        "files": {
-            "framework": {
-                "parents": {
-                    "AudioToolbox.framework": [
-                        {
-                            "xml": true,
-                            "count": 2
-                        }
-                    ],
-                    "CoreGraphics.framework": [
-                        {
-                            "xml": false,
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "config.xml": {
-                "parents": {
-                    "/*": [
-                        {
-                            "xml": "<feature name=\"Notification\"><param name=\"ios-package\" value=\"CDVNotification\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"BackgroundMode\"><param name=\"ios-package\" value=\"APPBackgroundMode\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"LocalNotification\"><param name=\"ios-package\" onload=\"true\" value=\"APPLocalNotification\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        }
-                    ]
-                }
-            },
-            "*-Info.plist": {
-                "parents": {
-                    "UIBackgroundModes": [
-                        {
-                            "xml": "<array><string>audio</string></array>",
-                            "count": 1
-                        }
-                    ]
-                }
-            }
-        }
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
     },
-    "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "cordova-plugin-dialogs": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "cordova-plugin-vibration": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "de.appplant.cordova.plugin.background-mode": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        },
-        "de.appplant.cordova.plugin.local-notification-ios9-fix": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        }
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
     },
-    "dependent_plugins": {
-        "de.appplant.cordova.common.registerusernotificationsettings": {
-            "PACKAGE_NAME": "com.experiencesampler.exampleExperienceSampleriOS"
-        }
+    "cordova-plugin-vibration": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
     }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "com.experiencesampler.example"
+    }
+  }
 }
