@@ -62,6 +62,26 @@ textarea {
   	height: 100px;
 }
 
+input[type=number]{
+  	font-size:1.25em;
+  	font-weight: bold;
+  	border-radius: 1px;
+  	border-color: #008BB0;
+  	border-style: solid;
+  	width: 300px;
+}
+
+input[type=time]{
+  	font-size:1.00em;
+}
+
+input[type=checkbox]{
+  	font-size:1.50em;
+  	margin:0px 10px;
+	padding:0px 10px;
+	float: left;
+}
+
 input[type=range] {
 	-webkit-appearance: slider-vertical;
 	writing-mode: vertical-lr;
@@ -99,8 +119,9 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 ul
 {
 	list-style-type: none;
-	padding: 0em;
-	margin: 0em;
+	padding: 5px;
+	margin: 5px;
+	text-align: left;
 }
 
 h1 {
