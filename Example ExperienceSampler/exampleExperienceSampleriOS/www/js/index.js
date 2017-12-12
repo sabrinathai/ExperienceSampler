@@ -232,22 +232,22 @@ var participantSetup = [
                         {
                     	"type": "timePicker",
                         "variableName": "weekdayWakeTime",
-                        "questionPrompt": "Please select the time that you usually wake up on WEEKDAYS:"
+                        "questionPrompt": "Please select the time that you usually wake up on <b>WEEKDAYS</b>:"
                         },
                         {
                     	"type": "timePicker",
-                        "variableName": "weekdayDinnerTime",
-                        "questionPrompt": "Please select the time that you usually have dinner on WEEKDAYS:"
+                        "variableName": "weekdaySleepTime",
+                        "questionPrompt": "Please select the time that you usually go to sleep on <b>WEEKDAYS</b>:"
                         },
                         {
                         "type": "timePicker",
                         "variableName": "weekendWakeTime",
-                        "questionPrompt": "Please select the time that you usually wake up on WEEKENDS:"
+                        "questionPrompt": "Please select the time that you usually wake up on <b>WEEKENDS</b>:"
                         },
                         {
                         "type": "timePicker",
-                        "variableName": "weekendDinnerTime",
-                        "questionPrompt": "Please select the time that you usually have dinner on WEEKENDS:"
+                        "variableName": "weekendSleepTime",
+                        "questionPrompt": "Please select the time that you usually go to sleep on <b>WEEKENDS</b>:"
                         },
                         ];
 
@@ -257,7 +257,7 @@ var participantSetup = [
 var NUMSETUPQS = participantSetup.length;
 var SNOOZEQ = 0;
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
-var questionTextTmpl = "{{questionPrompt}}";
+var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
 var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
@@ -605,9 +605,9 @@ scheduleNotifs:function() {
    	var day = 86400000;
    	var minDiaryLag = 5400000;
    	var randomDiaryLag = 1800000;
-	var weekendDinnerTime = localStore.weekendDinnerTime.split(":");
+	var weekendSleepTime = localStore.weekendSleepTime.split(":");
 	var weekendWakeTime = localStore.weekendWakeTime.split(":");
-	var weekdayDinnerTime = localStore.weekdayDinnerTime.split(":");
+	var weekdaySleepTime = localStore.weekdaySleepTime.split(":");
 	var weekdayWakeTime = localStore.weekdayWakeTime.split(":");
 	var dateObject = new Date();
     var now = dateObject.getTime(); 
@@ -617,8 +617,8 @@ scheduleNotifs:function() {
    		var alarmDay = dayOfWeek + 1 + i; 
    			if (alarmDay > 6) {alarmDay = alarmDay - 7;}
    			if (alarmDay == 0 || alarmDay == 6) {
-   				currentMaxHour = weekendDinnerTime[0];
-   				currentMaxMinutes = weekendDinnerTime[1];
+   				currentMaxHour = weekendSleepTime[0];
+   				currentMaxMinutes = weekendSleepTime[1];
    				currentMinHour = weekendWakeTime[0];
    				currentMinMinutes = weekendWakeTime[1];
    				if (alarmDay == 0) {
@@ -633,8 +633,8 @@ scheduleNotifs:function() {
 				
    			}
    			else {
-   				currentMaxHour = weekdayDinnerTime[0];
-   				currentMaxMinutes = weekdayDinnerTime[1];
+   				currentMaxHour = weekdaySleepTime[0];
+   				currentMaxMinutes = weekdaySleepTime[1];
    				currentMinHour = weekdayWakeTime[0];
    				currentMinMinutes = weekdayWakeTime[1];   				
    				if (alarmDay == 5) {
@@ -720,4 +720,6 @@ validateTime: function(data){
 		return true
 	}
 }         
+};
+
 };
