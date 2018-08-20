@@ -628,7 +628,6 @@ saveData:function() {
 //            crossDomain: true,
 //            success: function (result) {
 //            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey, pause_time=localStore.pause_time;
-//            localStore.clear();
 //            localStore.participant_id = pid;
 //            localStore.snoozed = snoozed;
 // 		localStore.uniqueKey = uniqueKey;
