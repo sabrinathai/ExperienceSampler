@@ -128,13 +128,20 @@ var surveyQuestions = [
                                 {"label": "label for smallest scale point"},
                                 ]
                        },
-                       /*5*/
+                       /*7*/
                        /*a "text" question is an open-ended question in which participants can enter values*/
                        {
                        "type":"question type",
                        "variableName": "variableName",
                        "questionPrompt": "Exact question wording",
                        },
+		       /*8*/
+		       /* a "link" question allows participants to access a survey through an onine survey platform*/
+		       {
+                       "type":"question type",
+                       "variableName": "variableName",
+                       "questionPrompt": “Please click <a href=‘insert your link here’ target=‘_blank’>HERE</a> to open your survey.”,
+                       },  	       
                        /*input additional questions*/
                        ];
 
@@ -195,6 +202,7 @@ var textTmpl="<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><butt
 var numberTmpl = "<li><input type='number' id='{{id}}'></input></li><br/><br/><li></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var checkListTmpl="<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
 var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>";
+var linkTmpl = "<li><button id='{{id}}' value = 'Next'>Click here AFTER finishing the survey in the link above</button></li>";
 var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var datePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="date"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
 var dateAndTimePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY-HH-mm" data-template="D MMM YYYY  HH:mm" name="datetime24"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
@@ -333,7 +341,17 @@ renderQuestion: function(question_index) {
         		app.recordResponse(String(instruction), question_index, question.type);
         	});
         	break;
-        case 'text': //default to open-ended text
+        case 'link':
+        	question.buttons = Mustache.render(linkTmpl, {id: question.variableName+"1"});
+        	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
+        	var instruction = [];
+        	$("#question ul li button").click(function(){ 
+        		instruction.push(question.variableName);
+        		instruction.push($(this).val());
+        		app.recordResponse(String(instruction), question_index, question.type);
+        	});
+        	break; 
+	case 'text': //default to open-ended text
         	question.buttons = Mustache.render(textTmpl, {id: question.variableName+"1"});
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
         	$("#question ul li button").click(function(){
