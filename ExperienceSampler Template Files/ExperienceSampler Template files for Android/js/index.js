@@ -1,6 +1,6 @@
 /*EXPERIENCESAMPLER LICENSE
 The MIT License (MIT)
-Copyright (c) 2014-2015 Sabrina Thai & Elizabeth Page-Gould
+Copyright (c) 2014-2020 Sabrina Thai & Elizabeth Page-Gould
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -125,14 +125,14 @@ var surveyQuestions = [
                                 {"label": "label for smallest scale point"},
                                 ]
                        },
-                       /*5*/
+                       /*7*/
                        /*a "text" question is an open-ended question in which participants can enter values*/
                        {
                        "type":"question type",
                        "variableName": "variableName",
                        "questionPrompt": "Exact question wording",
                        },
-			/*6*/
+			/*8*/
 			/* a "link" question allows participants to access a survey through an onine survey platform*/
 			{
                        "type":"question type",
