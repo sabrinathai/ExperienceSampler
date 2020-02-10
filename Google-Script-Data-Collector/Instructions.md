@@ -17,11 +17,15 @@ respectively.
 You are now ready the test and potentially deploy the data storage web app. 
 
 1.  Click on the debug icon, which looks like a bug and is located beside the dropdown menu titled **Select function**. 
-2.  The script will then ask for Authorization. Select `Continue` and then `Accept` to authorize the web app. 
-3.  To deploy as a web app, a project version needs to be created. 
-4.  Go to `Publish` then `Deploy as web app`. 
-5.  In the dropdown menu for Who has access to the app, select `Anyone, even anonymous`. 
-6.  Then click `Deploy`. Copy the URL that appears below `Current web app URL`. You need this URL to input into your ExperienceSampler 
+2.  The script will then ask for Authorization. Select `Review Permissions`.
+3.  Click on your Google Account
+4.  You will see "This app is not verified" on the screen. Click on `Advanced` underneath it. 
+5.  Scroll down and click on `Go to Untitled project (unsafe)` Note: the name of the project may vary depending on how you have named your project. 
+6.  Then click `Allow`. You will most likely get an email from Google notifying you that an unverified app has been made. 
+7.  To deploy as a web app, a project version needs to be created. 
+8.  Go to `Publish` then `Deploy as web app`. 
+9.  In the dropdown menu for Who has access to the app, select `Anyone, even anonymous`. 
+10.  Then click `Deploy`. Copy the URL that appears below `Current web app URL`. You need this URL to input into your ExperienceSampler 
 code so that the app knows where to send the data. 
 
 ## saveData functions
