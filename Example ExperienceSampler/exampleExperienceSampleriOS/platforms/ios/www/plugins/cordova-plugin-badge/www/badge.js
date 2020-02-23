@@ -22,6 +22,7 @@ var exec      = require('cordova/exec'),
     isIOS     = ua.indexOf('ipad') > -1 || ua.indexOf('iphone') > -1,
     isMac     = ua.indexOf('macintosh') > -1,
     isWin     = window.Windows !== undefined,
+    isAndroid = !isWin && ua.indexOf('android') > -1,
     isWinPC   = isWin && Windows.System.Profile.AnalyticsInfo.versionInfo.deviceFamily.includes('Desktop'),
     isDesktop = isMac || isWinPC;
 
@@ -99,6 +100,22 @@ exports.decrease = function (count, callback, scope) {
     this.get(function (badge) {
         this.set(Math.max(0, badge - (count || 1)), callback, scope);
     }, this);
+};
+
+/**
+ * Check support to show badges.
+ *
+ * @param [ Function ] callback The callback function to be execute later.
+ * @param [ Function ] scope    Optional scope for the callback function.
+ *
+ * @return [ Void ]
+ */
+exports.isSupported = function (callback, scope) {
+    if (isAndroid) {
+        this.exec('check', null, callback, scope);
+    } else {
+        this.createCallbackFn(callback, scope)(true);
+    }
 };
 
 /**
@@ -237,6 +254,29 @@ if (isDesktop) {
     window.addEventListener('focus', function () {
         exports.clearIf();
     }, false);
+}
+
+// Polyfill for Object.assign
+if (typeof Object.assign != 'function') {
+  Object.assign = function(target) {
+    'use strict';
+    if (target == null) {
+      throw new TypeError('Cannot convert undefined or null to object');
+    }
+
+    target = Object(target);
+    for (var index = 1; index < arguments.length; index++) {
+      var source = arguments[index];
+      if (source != null) {
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+    return target;
+  };
 }
 
 });

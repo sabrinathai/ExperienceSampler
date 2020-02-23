@@ -19,6 +19,8 @@
  * limitations under the License.
  */
 
+// codebeat:disable[TOO_MANY_FUNCTIONS]
+
 package de.appplant.cordova.plugin.notification;
 
 import android.content.Context;
@@ -32,6 +34,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.System;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -132,7 +135,7 @@ public final class Options {
      *
      * @return The notification ID as the string
      */
-    public String getIdentifier() {
+    String getIdentifier() {
         return getId().toString();
     }
 
@@ -200,11 +203,17 @@ public final class Options {
     }
 
     /**
+     * Gets the value for the timeout flag.
+     */
+    long getTimeout() {
+        return options.optLong("timeoutAfter");
+    }
+
+    /**
      * The channel id of that notification.
      */
-    String getChannel() {
-        return options.optString("channel", Manager.CHANNEL_ID);
-    }
+    String getChannel() { return options.optString("channel", Manager.DEFAULT_CHANNEL_ID); }
+    String getChannelDescription() { return options.optString("channelDescription", Manager.DEFAULT_CHANNEL_DESCRIPTION); }
 
     /**
      * If the group shall show a summary.
@@ -335,7 +344,7 @@ public final class Options {
     /**
      * Sound file path for the local notification.
      */
-    public Uri getSound() {
+    Uri getSound() {
         return assets.parse(options.optString("sound", null));
     }
 
@@ -389,14 +398,14 @@ public final class Options {
     /**
      * If the phone should vibrate.
      */
-    private boolean isWithVibration() {
+    public boolean isWithVibration() {
         return options.optBoolean("vibrate", true);
     }
 
     /**
      * If the phone should play no sound.
      */
-    private boolean isWithoutSound() {
+    public boolean isWithoutSound() {
         Object value = options.opt("sound");
         return value == null || value.equals(false);
     }
@@ -404,7 +413,7 @@ public final class Options {
     /**
      * If the phone should play the default sound.
      */
-    private boolean isWithDefaultSound() {
+    public boolean isWithDefaultSound() {
         Object value = options.opt("sound");
         return value != null && value.equals(true);
     }
@@ -412,7 +421,7 @@ public final class Options {
     /**
      * If the phone should show no LED light.
      */
-    private boolean isWithoutLights() {
+    public boolean isWithoutLights() {
         Object value = options.opt("led");
         return value == null || value.equals(false);
     }
@@ -420,7 +429,7 @@ public final class Options {
     /**
      * If the phone should show the default LED lights.
      */
-    private boolean isWithDefaultLights() {
+    public boolean isWithDefaultLights() {
         Object value = options.opt("led");
         return value != null && value.equals(true);
     }
@@ -472,17 +481,35 @@ public final class Options {
     /**
      * Gets the notifications priority.
      */
-    int getPriority() {
-        int prio = options.optInt("priority");
+    int getPrio() {
+        return Math.min(Math.max(options.optInt("priority"), PRIORITY_MIN), PRIORITY_MAX);
+    }
 
-        return Math.min(Math.max(prio, PRIORITY_MIN), PRIORITY_MAX);
+    /**
+     * Set the when date for the notification.
+     */
+    long getWhen() {
+        long when = options.optLong("when");
+
+        return (when != 0) ? when : System.currentTimeMillis();
+    }
+	
+    /**
+     * If the notification shall show the when date.
+     */
+    boolean showClock() {
+        Object clock = options.opt("clock");
+
+        return (clock instanceof Boolean) ? (Boolean) clock : true;
     }
 
     /**
      * If the notification shall show the when date.
      */
-    boolean getShowWhen() {
-        return options.optBoolean("showWhen", true);
+    boolean showChronometer() {
+        Object clock = options.opt("clock");
+
+        return (clock instanceof String) && clock.equals("chronometer");
     }
 
     /**
@@ -578,24 +605,26 @@ public final class Options {
      * Gets the list of actions to display.
      */
     Action[] getActions() {
-        String groupId    = options.optString("actionGroupId", null);
-        JSONArray actions = options.optJSONArray("actions");
+        Object value      = options.opt("actions");
+        String groupId    = null;
+        JSONArray actions = null;
         ActionGroup group = null;
 
-        if (actions != null && actions.length() > 0) {
-            group = ActionGroup.parse(context, options);
+        if (value instanceof String) {
+            groupId = (String) value;
+        } else
+        if (value instanceof JSONArray) {
+            actions = (JSONArray) value;
         }
 
-        if (group == null && groupId != null) {
+        if (groupId != null) {
             group = ActionGroup.lookup(groupId);
+        } else
+        if (actions != null && actions.length() > 0) {
+            group = ActionGroup.parse(context, actions);
         }
 
-        if (group != null) {
-            ActionGroup.register(group);
-            return group.getActions();
-        }
-
-        return null;
+        return (group != null) ? group.getActions() : null;
     }
 
     /**
@@ -657,3 +686,5 @@ public final class Options {
     }
 
 }
+
+// codebeat:enable[TOO_MANY_FUNCTIONS]

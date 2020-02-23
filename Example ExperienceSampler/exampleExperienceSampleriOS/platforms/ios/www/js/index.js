@@ -2,7 +2,7 @@
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 Sabrina Thai & Elizabeth Page-Gould
+Copyright (c) 2014-2020 Sabrina Thai & Elizabeth Page-Gould
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -232,22 +232,22 @@ var participantSetup = [
                         {
                     	"type": "timePicker",
                         "variableName": "weekdayWakeTime",
-                        "questionPrompt": "Please select the time that you usually wake up on WEEKDAYS:"
+                        "questionPrompt": "Please select the time that you usually wake up on <b>WEEKDAYS</b>:"
                         },
                         {
                     	"type": "timePicker",
-                        "variableName": "weekdayDinnerTime",
-                        "questionPrompt": "Please select the time that you usually have dinner on WEEKDAYS:"
+                        "variableName": "weekdaySleepTime",
+                        "questionPrompt": "Please select the time that you usually go to sleep on <b>WEEKDAYS</b>:"
                         },
                         {
                         "type": "timePicker",
                         "variableName": "weekendWakeTime",
-                        "questionPrompt": "Please select the time that you usually wake up on WEEKENDS:"
+                        "questionPrompt": "Please select the time that you usually wake up on <b>WEEKENDS</b>:"
                         },
                         {
                         "type": "timePicker",
-                        "variableName": "weekendDinnerTime",
-                        "questionPrompt": "Please select the time that you usually have dinner on WEEKENDS:"
+                        "variableName": "weekendSleepTime",
+                        "questionPrompt": "Please select the time that you usually go to sleep on <b>WEEKENDS</b>:"
                         },
                         ];
 
@@ -257,7 +257,7 @@ var participantSetup = [
 var NUMSETUPQS = participantSetup.length;
 var SNOOZEQ = 0;
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
-var questionTextTmpl = "{{questionPrompt}}";
+var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
 var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
@@ -498,7 +498,7 @@ recordResponse: function(button, count, type) {
     localStore[uniqueRecord] = response;
     //Identify the next question to populate the view
     //This is where you do the Question Logic
-    if (count <= -1) {console.log(uniqueRecord);}
+    //if (count <= -1) {console.log(uniqueRecord);}
    	if (count == -1) {app.scheduleNotifs(); app.renderLastPage(lastPage[2], count);}
     else if (count == SNOOZEQ && response == 0) {app.renderLastPage(lastPage[1], count);}
     else if (count == 5 && response == 0) {app.renderLastPage(lastPage[0], count);}
@@ -597,7 +597,8 @@ saveDataLastPage:function() {
 },
 scheduleNotifs:function() {
 	//cordova.plugins.backgroundMode.enable();
-   	var interval1, interval2, interval3, interval4, interval5, interval6, interval7
+   	var interval1, interval2, interval3, interval4, interval5, interval6;
+   	var epoch1, epoch2, epoch3, epoch4, epoch5, epoch6; 
    	var a, b, c, d, e, f, g;
    	var date1, date2, date3, date4, date5, date6, date7;
    	var currentMaxHour, currentMaxMinutes, currentMinHour, currenMinMinutes, nextMinHour, nextMinMinutes;
@@ -605,9 +606,9 @@ scheduleNotifs:function() {
    	var day = 86400000;
    	var minDiaryLag = 5400000;
    	var randomDiaryLag = 1800000;
-	var weekendDinnerTime = localStore.weekendDinnerTime.split(":");
+	var weekendSleepTime = localStore.weekendSleepTime.split(":");
 	var weekendWakeTime = localStore.weekendWakeTime.split(":");
-	var weekdayDinnerTime = localStore.weekdayDinnerTime.split(":");
+	var weekdaySleepTime = localStore.weekdaySleepTime.split(":");
 	var weekdayWakeTime = localStore.weekdayWakeTime.split(":");
 	var dateObject = new Date();
     var now = dateObject.getTime(); 
@@ -617,8 +618,8 @@ scheduleNotifs:function() {
    		var alarmDay = dayOfWeek + 1 + i; 
    			if (alarmDay > 6) {alarmDay = alarmDay - 7;}
    			if (alarmDay == 0 || alarmDay == 6) {
-   				currentMaxHour = weekendDinnerTime[0];
-   				currentMaxMinutes = weekendDinnerTime[1];
+   				currentMaxHour = weekendSleepTime[0];
+   				currentMaxMinutes = weekendSleepTime[1];
    				currentMinHour = weekendWakeTime[0];
    				currentMinMinutes = weekendWakeTime[1];
    				if (alarmDay == 0) {
@@ -633,8 +634,8 @@ scheduleNotifs:function() {
 				
    			}
    			else {
-   				currentMaxHour = weekdayDinnerTime[0];
-   				currentMaxMinutes = weekdayDinnerTime[1];
+   				currentMaxHour = weekdaySleepTime[0];
+   				currentMaxMinutes = weekdaySleepTime[1];
    				currentMinHour = weekdayWakeTime[0];
    				currentMinMinutes = weekdayWakeTime[1];   				
    				if (alarmDay == 5) {
@@ -673,35 +674,92 @@ scheduleNotifs:function() {
         	date4 = new Date(now + interval4);
         	date5 = new Date(now + interval5);
         	date6 = new Date(now + interval6);
+        	
+        	epoch1 = date1.getTime();
+        	epoch2 = date2.getTime();
+        	epoch3 = date3.getTime();
+        	epoch4 = date4.getTime();
+			epoch5 = date5.getTime();
+			epoch6 = date6.getTime();
 
+			cordova.plugins.notification.local.schedule([
+				{icon: 'ic_launcher', id: a, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch1)} }, 
+				{icon: 'ic_launcher', id: b, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch2)} }, 
+				{icon: 'ic_launcher', id: c, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch3)} }, 
+				{icon: 'ic_launcher', id: d, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch4)} }, 
+				{icon: 'ic_launcher', id: e, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch5)} }, 
+				{icon: 'ic_launcher', id: f, text: 'Time for your next Diary Survey!', title: 'Diary Surveys', trigger: {at: new Date(epoch6)} }
+				
+			]);
+			
         	localStore['notification_' + i + '_1'] = localStore.participant_id + "_" + a + "_" + date1;
         	localStore['notification_' + i + '_2'] = localStore.participant_id + "_" + b + "_" + date2;
         	localStore['notification_' + i + '_3'] = localStore.participant_id + "_" + c + "_" + date3;
         	localStore['notification_' + i + '_4'] = localStore.participant_id + "_" + d + "_" + date4;
         	localStore['notification_' + i + '_5'] = localStore.participant_id + "_" + e + "_" + date5;
         	localStore['notification_' + i + '_6'] = localStore.participant_id + "_" + f + "_" + date6;
-        	
-        	notifs.push({id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-        	notifs.push({id: b, at: date2, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-        	notifs.push({id: c, at: date3, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-        	notifs.push({id: d, at: date4, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-        	notifs.push({id: e, at: date5, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-        	notifs.push({id: f, at: date6, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
         	}
-        	cordova.plugins.notification.local.schedule(notifs);
 },
-snoozeNotif:function() {
-    var now = new Date().getTime(), snoozeDate = new Date(now + 600*1000);
-    var id = '99';
-    cordova.plugins.notification.local.schedule({
-                                         icon: 'ic_launcher',
-                                         id: id,
-                                         title: 'Diary Survey',
-                                         text: 'Please complete survey now!',
-                                         at: snoozeDate,
-                                         });
-  //console.log(snoozeDate);                                       
-},     
+
+// scheduleNotifs:function(){
+// var interval1, interval2, interval3, interval4, interval5
+// var a, b, c, d, e;
+// var date1, date2, date3, date4, date5;
+// var nextDiaryLag;
+// var day = 86400000;
+// var now = new Date().getTime();
+// var startDate = new Date();
+// var startDay = startDate.getDate();
+// var startTime = startDate.setDate((startDay+1), 10,0,0,0);
+// nextDiaryLag = parseInt(startTime) - parseInt(now);
+// for (i = 0; i < 5; i++){    
+// 
+// interval1 = nextDiaryLag + day*i;
+// interval2 = ((interval1 + parseInt(7200))*1000);
+// interval3 = ((interval2 + parseInt(7200))*1000);
+// interval4 = ((interval3 + parseInt(7200))*1000);
+// interval5 = ((interval4 + parseInt(7200))*1000);
+// 
+// date1 = new Date(now + interval1);
+// date2 = new Date(now + interval2);
+// date3 = new Date(now + interval3);
+// date4 = new Date(now + interval4);
+// date5 = new Date(now + interval5);
+// 
+// a = 101+(parseInt(i)*100);
+// b = 102+(parseInt(i)*100);
+// c = 103+(parseInt(i)*100);
+// d = 104+(parseInt(i)*100);
+// e = 105+(parseInt(i)*100);
+// 
+// cordova.plugins.notification.local.schedule([
+//     {icon: 'ic_launcher', id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'}, 
+//     {icon: 'ic_launcher', id: b, at: date2, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//     {icon: 'ic_launcher', id: c, at: date3, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//     {icon: 'ic_launcher', id: d, at: date4, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//     {icon: 'ic_launcher', id: e, at: date5, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'}]);
+// 
+// localStore['notification_' + i + '_1'] = localStore.participant_id + "_" + a + "_" + date1;
+// localStore['notification_' + i + '_2'] = localStore.participant_id + "_" + b + "_" + date2;
+// localStore['notification_' + i + '_3'] = localStore.participant_id + "_" + c + "_" + date3;
+// localStore['notification_' + i + '_4'] = localStore.participant_id + "_" + d + "_" + date4;
+// localStore['notification_' + i + '_5'] = localStore.participant_id + "_" + e + "_" + date5;
+// }
+// },
+// 
+
+// snoozeNotif:function() {
+// //     var now = new Date().getTime(), snoozeDate = new Date(now + X*1000);
+//     var id = '99';
+//     cordova.plugins.notification.local.schedule({
+//                                          icon: 'ic_launcher',
+//                                          id: id,
+//                                          title: 'Diary Surveys',
+//                                          text: 'Please complete survey now!',
+//                                          trigger: {in: 10, unit: 'minute'},
+//                                          });
+// },
+
 validateResponse: function(data){
         var text = data.val();
 //         console.log(text);

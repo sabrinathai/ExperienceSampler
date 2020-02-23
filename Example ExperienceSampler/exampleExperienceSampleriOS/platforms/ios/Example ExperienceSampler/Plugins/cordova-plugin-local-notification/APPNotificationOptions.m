@@ -25,6 +25,9 @@
 @import CoreLocation;
 @import UserNotifications;
 
+// Maps these crap where Sunday is the 1st day of the week
+static NSInteger WEEKDAYS[8] = { 0, 2, 3, 4, 5, 6, 7, 1 };
+
 @interface APPNotificationOptions ()
 
 // The dictionary which contains all notification properties
@@ -48,11 +51,8 @@
  */
 - (id) initWithDict:(NSDictionary*)dictionary
 {
-    self = [self init];
-
+    self      = [self init];
     self.dict = dictionary;
-
-    [self actions];
 
     return self;
 }
@@ -67,7 +67,7 @@
  */
 - (NSNumber*) id
 {
-    NSInteger id = [[dict objectForKey:@"id"] integerValue];
+    NSInteger id = [dict[@"id"] integerValue];
 
     return [NSNumber numberWithInteger:id];
 }
@@ -89,7 +89,7 @@
  */
 - (NSString*) title
 {
-    return [dict objectForKey:@"title"];
+    return dict[@"title"];
 }
 
 /**
@@ -111,7 +111,7 @@
  */
 - (NSString*) text
 {
-    return [dict objectForKey:@"text"];
+    return dict[@"text"];
 }
 
 /**
@@ -121,7 +121,7 @@
  */
 - (BOOL) silent
 {
-    return [[dict objectForKey:@"silent"] boolValue];
+    return [dict[@"silent"] boolValue];
 }
 
 /**
@@ -131,7 +131,7 @@
  */
 - (int) priority
 {
-    return [[dict objectForKey:@"priority"] intValue];
+    return [dict[@"priority"] intValue];
 }
 
 /**
@@ -141,7 +141,7 @@
  */
 - (NSNumber*) badge
 {
-    id value = [dict objectForKey:@"badge"];
+    id value = dict[@"badge"];
 
     return (value == NULL) ? NULL : [NSNumber numberWithInt:[value intValue]];
 }
@@ -151,11 +151,11 @@
  *
  * @return [ NSString* ]
  */
-- (NSString*) categoryId
+- (NSString*) actionGroupId
 {
-    NSString* value = [dict objectForKey:@"actionGroupId"];
-
-    return value.length ? value : kAPPGeneralCategory;
+    id actions = dict[@"actions"];
+    
+    return ([actions isKindOfClass:NSString.class]) ? actions : kAPPGeneralCategory;
 }
 
 /**
@@ -165,7 +165,7 @@
  */
 - (UNNotificationSound*) sound
 {
-    NSString* path = [dict objectForKey:@"sound"];
+    NSString* path = dict[@"sound"];
     NSString* file;
 
     if ([path isKindOfClass:NSNumber.class]) {
@@ -193,7 +193,7 @@
  */
 - (NSArray<UNNotificationAttachment *> *) attachments
 {
-    NSArray* paths              = [dict objectForKey:@"attachments"];
+    NSArray* paths              = dict[@"attachments"];
     NSMutableArray* attachments = [[NSMutableArray alloc] init];
 
     if (!paths)
@@ -214,69 +214,6 @@
     }
 
     return attachments;
-}
-
-/**
- * Additional actions for the notification.
- *
- * @return [ NSArray* ]
- */
-- (NSArray<UNNotificationAction *> *) actions
-{
-    NSArray* items          = [dict objectForKey:@"actions"];
-    NSMutableArray* actions = [[NSMutableArray alloc] init];
-
-    if (!items)
-        return actions;
-
-    for (NSDictionary* item in items) {
-        NSString* id    = [item objectForKey:@"id"];
-        NSString* title = [item objectForKey:@"title"];
-        NSString* type  = [item objectForKey:@"type"];
-
-        UNNotificationActionOptions options = UNNotificationActionOptionNone;
-        UNNotificationAction* action;
-
-        if ([[item objectForKey:@"launch"] boolValue]) {
-            options = UNNotificationActionOptionForeground;
-        }
-
-        if ([[item objectForKey:@"ui"] isEqualToString:@"decline"]) {
-            options = options | UNNotificationActionOptionDestructive;
-        }
-
-        if ([[item objectForKey:@"needsAuth"] boolValue]) {
-            options = options | UNNotificationActionOptionAuthenticationRequired;
-        }
-
-        if ([type isEqualToString:@"input"]) {
-            NSString* submitTitle = [item objectForKey:@"submitTitle"];
-            NSString* placeholder = [item objectForKey:@"emptyText"];
-
-            if (!submitTitle.length) {
-                submitTitle = @"Submit";
-            }
-
-            action = [UNTextInputNotificationAction actionWithIdentifier:id
-                                                                   title:title
-                                                                 options:options
-                                                    textInputButtonTitle:submitTitle
-                                                    textInputPlaceholder:placeholder];
-        } else
-        if (!type.length || [type isEqualToString:@"button"]) {
-            action = [UNNotificationAction actionWithIdentifier:id
-                                                          title:title
-                                                        options:options];
-        } else {
-            NSLog(@"Unknown action type: %@", type);
-        }
-
-        if (action) {
-            [actions addObject:action];
-        }
-    }
-
-    return actions;
 }
 
 #pragma mark -
@@ -310,7 +247,7 @@
  */
 - (NSDictionary*) userInfo
 {
-    if ([dict objectForKey:@"updatedAt"]) {
+    if (dict[@"updatedAt"]) {
         NSMutableDictionary* data = [dict mutableCopy];
 
         [data removeObjectForKey:@"updatedAt"];
@@ -326,7 +263,7 @@
 
 - (id) valueForTriggerOption:(NSString*)key
 {
-    return [[dict objectForKey:@"trigger"] objectForKey:key];
+    return dict[@"trigger"][key];
 }
 
 /**
@@ -410,8 +347,13 @@
         seconds = 60;
     }
 
-    return [UNTimeIntervalNotificationTrigger
-            triggerWithTimeInterval:seconds repeats:YES];
+    UNTimeIntervalNotificationTrigger* trigger =
+    [UNTimeIntervalNotificationTrigger triggerWithTimeInterval:seconds
+                                                       repeats:YES];
+
+    NSLog(@"[local-notification] Next trigger at: %@", trigger.nextTriggerDate);
+
+    return trigger;
 }
 
 /**
@@ -421,16 +363,19 @@
  */
 - (UNCalendarNotificationTrigger*) triggerWithDateMatchingComponents:(BOOL)repeats
 {
-    NSCalendar* cal = [[NSCalendar alloc]
-                       initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-
+    NSCalendar* cal        = [self calendarWithMondayAsFirstDay];
     NSDateComponents *date = [cal components:[self repeatInterval]
                                     fromDate:[self triggerDate]];
 
     date.timeZone = [NSTimeZone defaultTimeZone];
 
-    return [UNCalendarNotificationTrigger
-            triggerWithDateMatchingComponents:date repeats:repeats];
+    UNCalendarNotificationTrigger* trigger =
+    [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:date
+                                                             repeats:repeats];
+
+    NSLog(@"[local-notification] Next trigger at: %@", trigger.nextTriggerDate);
+
+    return trigger;
 }
 
 /**
@@ -440,16 +385,19 @@
  */
 - (UNCalendarNotificationTrigger*) triggerWithCustomDateMatchingComponents
 {
-    NSCalendar* cal = [[NSCalendar alloc]
-                       initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-
+    NSCalendar* cal        = [self calendarWithMondayAsFirstDay];
     NSDateComponents *date = [self customDateComponents];
 
     date.calendar = cal;
     date.timeZone = [NSTimeZone defaultTimeZone];
 
-    return [UNCalendarNotificationTrigger
-            triggerWithDateMatchingComponents:date repeats:YES];
+    UNCalendarNotificationTrigger* trigger =
+    [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:date
+                                                             repeats:YES];
+
+    NSLog(@"[local-notification] Next trigger at: %@", trigger.nextTriggerDate);
+
+    return trigger;
 }
 
 /**
@@ -548,7 +496,7 @@
             date.day = value;
         } else
         if ([key isEqualToString:@"weekday"]) {
-            date.weekday = value;
+            date.weekday = WEEKDAYS[value];
         } else
         if ([key isEqualToString:@"weekdayOrdinal"]) {
             date.weekdayOrdinal = value;
@@ -827,6 +775,22 @@
     }
 
     return 0;
+}
+
+/**
+ * Instance if a calendar where the monday is the first day of the week.
+ *
+ * @return [ NSCalendar* ]
+ */
+- (NSCalendar*) calendarWithMondayAsFirstDay
+{
+    NSCalendar* cal = [[NSCalendar alloc]
+                       initWithCalendarIdentifier:NSCalendarIdentifierISO8601];
+
+    cal.firstWeekday = 2;
+    cal.minimumDaysInFirstWeek = 1;
+
+    return cal;
 }
 
 @end

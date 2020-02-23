@@ -19,7 +19,7 @@ Users see notifications in the following ways:
 
 - __Android / Amazon FireOS__ (via [ShortcutBadger][shortcut_badger])
 - __Browser__ (via [favico.js][favico_js])
-- __iOS__
+- __iOS 10+__
 - __OSX__
 - __Windows__ (Phone and Desktop)
 
@@ -42,7 +42,7 @@ Or install the latest head version:
 
 Or install from local source:
 
-    $ cordova plugin add cordova-plugin-badge --searchpath <path>
+    $ cordova plugin add <path> --nofetch --nosave
 
 
 ## Usage
@@ -166,8 +166,8 @@ If you're using PhoneGap Build please make sure you specify gradle as your Andro
 To specify a custom version of _ShortcutBadger_ follow this [guide][gradle-guide]. The name of the property is `appShortcutBadgerVersion`.
 
 ```gradle
-// In <your-project>/platforms/android/build-extras.gradle
-ext.appShortcutBadgerVersion = '1.1.18'
+# In <your-project>/platforms/android/gradle.properties
+appShortcutBadgerVersion=1.1.22
 ```
 
 

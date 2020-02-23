@@ -10,12 +10,12 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "dependencies": {
-    "cordova-ios": "^4.5.4",
-    "cordova-plugin-badge": "^0.8.5",
+    "cordova-ios": "^5.1.1",
+    "cordova-plugin-badge": "^0.8.8",
     "cordova-plugin-console": "^1.1.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "^1.3.4",
-    "cordova-plugin-local-notification": "git+https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "cordova-plugin-local-notification": "git+https://github.com/Steffaan/cordova-plugin-local-notifications.git",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-vibration": "^2.1.6",
     "cordova-plugin-whitelist": "^1.3.3"

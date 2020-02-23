@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.experiencesampler.exampleexperiencesampler" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Notification">
+        <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="LocalNotification">
+        <param name="android-package" value="de.appplant.cordova.plugin.localnotification.LocalNotification" />
+    </feature>
+    <feature name="Badge">
+        <param name="android-package" value="de.appplant.cordova.plugin.badge.Badge" />
+    </feature>
+    <name>Example ExperienceSampler</name>
+    <description>
+        A sample Apache Cordova application that responds to the deviceready event.
+    </description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">
+        Apache Cordova Team
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <allow-intent href="market:*" />
+    <splash density="land-hdpi" src="res/screen/android/screen-hdpi-landscape.png" target="res/drawable-hdpi/screen.png" />
+    <splash density="hdpi" src="res/screen/android/screen-hdpi-portrait.png" target="res/drawable-hdpi/screen.png" />
+    <splash density="land-ldpi" src="res/screen/android/screen-ldpi-landscape.png" target="res/drawable-ldpi/screen.png" />
+    <splash density="ldpi" src="res/screen/android/screen-ldpi-portrait.png" target="res/drawable-ldpi/screen.png" />
+    <splash density="land-mdpi" src="res/screen/android/screen-mdpi-landscape.png" target="res/drawable-mdpi/screen.png" />
+    <splash density="mdpi" src="res/screen/android/screen-mdpi-portrait.png" target="res/drawable-mdpi/screen.png" />
+    <splash density="land-xhdpi" src="res/screen/android/screen-xhdpi-landscape.png" target="res/drawable-xhdpi/screen.png" />
+    <splash density="xhdpi" src="res/screen/android/screen-xhdpi-portrait.png" target="res/drawable-xhdpi/screen.png" />
+    <splash density="land-xxhdpi" src="res/screen/android/screen-xxhdpi-landscape.png" target="res/drawable-xxhdpi/screen.png" />
+    <splash density="xxhdpi" src="res/screen/android/screen-xxhdpi-portrait.png" target="res/drawable-xxhdpi/screen.png" />
+    <splash density="land-xxxhdpi" src="res/screen/android/screen-xxxhdpi-landscape.png" target="res/drawable-xxxhdpi/screen.png" />
+    <splash density="xxxhdpi" src="res/screen/android/screen-xxxhdpi-portrait.png" target="res/drawable-xxxhdpi/screen.png" />
+    <icon density="ldpi" src="res/icon/android/icon-ldpi.png" />
+    <icon density="mdpi" src="res/icon/android/icon-mdpi.png" />
+    <icon density="hdpi" src="res/icon/android/icon-hdpi.png" />
+    <icon density="xhdpi" src="res/icon/android/icon-xhdpi.png" />
+    <icon density="xxhdpi" src="res/icon/android/icon-xxhdpi.png" />
+    <icon density="xxxhdpi" src="res/icon/android/icon-xxxhdpi.png" />
+    <preference name="loglevel" value="DEBUG" />
+</widget>

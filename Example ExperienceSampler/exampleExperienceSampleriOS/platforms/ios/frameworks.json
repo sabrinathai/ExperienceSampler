@@ -1,6 +1,6 @@
 {
-    "AudioToolbox.framework": 2,
     "libz.tbd": 1,
+    "AudioToolbox.framework": 2,
     "UserNotifications.framework": 1,
     "CoreLocation.framework": 1
 }

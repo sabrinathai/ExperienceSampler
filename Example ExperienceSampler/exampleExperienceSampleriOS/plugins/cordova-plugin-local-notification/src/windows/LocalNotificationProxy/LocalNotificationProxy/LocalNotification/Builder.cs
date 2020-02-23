@@ -21,18 +21,25 @@
 
 namespace LocalNotificationProxy.LocalNotification
 {
+    using System.Diagnostics;
     using Microsoft.Toolkit.Uwp.Notifications;
     using Windows.UI.Notifications;
 
     internal class Builder
     {
         /// <summary>
+        /// The provided trigger request.
+        /// </summary>
+        private readonly Request request;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="Builder"/> class.
         /// </summary>
-        /// <param name="options">Notification properties to set.</param>
-        public Builder(Options options)
+        /// <param name="request">Trigger request.</param>
+        public Builder(Request request)
         {
-            this.Content = new Notification(options);
+            this.request = request;
+            this.Content = new Notification(request.Options);
         }
 
         /// <summary>
@@ -44,11 +51,6 @@ namespace LocalNotificationProxy.LocalNotification
         /// Gets the options.
         /// </summary>
         private Options Options { get => this.Content.Options; }
-
-        /// <summary>
-        /// Gets the trigger.
-        /// </summary>
-        private Trigger Trigger { get => this.Options.Trigger; }
 
         /// <summary>
         /// Build a toast notification specified by the options.
@@ -64,17 +66,6 @@ namespace LocalNotificationProxy.LocalNotification
 
             return this.ConvertToastToNotification(toast);
         }
-
-        /// <summary>
-        /// If there is at least one more toast variant to build.
-        /// </summary>
-        /// <returns>True if there are more toasts to build.</returns>
-        public bool HasNext() => this.Trigger.Count >= this.Trigger.Occurrence;
-
-        /// <summary>
-        /// Moves the flag to the next toast variant.
-        /// </summary>
-        public void MoveNext() => this.Trigger.Occurrence += this.HasNext() ? 1 : 0;
 
         /// <summary>
         /// Gets the initialize skeleton for a toast notification.
@@ -167,8 +158,10 @@ namespace LocalNotificationProxy.LocalNotification
         private ScheduledToastNotification ConvertToastToNotification(ToastContent toast)
         {
             var xml = toast.GetXml();
-            var at = this.Content.Date;
+            var at = this.request.TriggerDate;
             ScheduledToastNotification notification;
+
+            Debug.WriteLine("[local-notification] Next trigger at: " + at);
 
             if (!at.HasValue)
             {
@@ -188,7 +181,7 @@ namespace LocalNotificationProxy.LocalNotification
             notification.Tag = this.Options.Id.ToString();
             notification.SuppressPopup = this.Options.Silent;
 
-            if (this.Trigger.Occurrence > 1)
+            if (this.request.Occurrence > 2)
             {
                 notification.Group = notification.Tag;
             }

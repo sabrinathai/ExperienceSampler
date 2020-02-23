@@ -34,11 +34,11 @@ var ConfigParser = require('cordova-common').ConfigParser;
 var Api = require('./templates/scripts/cordova/Api');
 
 var argv = require('nopt')({
-    'help' : Boolean,
-    'cli' : Boolean,
-    'shared' : Boolean, // alias for --link
-    'link' : Boolean
-}, { 'd' : '--verbose' });
+    'help': Boolean,
+    'cli': Boolean,
+    'shared': Boolean, // alias for --link
+    'link': Boolean
+}, { 'd': '--verbose' });
 
 var projectPath = argv.argv.remain[0];
 
@@ -63,7 +63,7 @@ if (argv.argv.remain[2]) config.setName(argv.argv.remain[2]);
 var options = {
     cli: argv.cli,
     link: argv.link || argv.shared,
-    customTemplate: argv.argv.remain[3],
+    customTemplate: argv.argv.remain[3]
 };
 
 require('./templates/scripts/cordova/loggingHelper').adjustLoggerLevel(argv);

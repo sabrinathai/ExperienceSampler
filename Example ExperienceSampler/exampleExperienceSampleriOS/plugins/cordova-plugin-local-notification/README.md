@@ -1,26 +1,4 @@
-
-<p align="left"><b><a href="https://github.com/katzer/cordova-plugin-local-notifications/tree/example-x">SAMPLE APP</a> :point_right:</b></p>
-
-<br>
-
-<p align="center">
-    <img src="images/logo.png">
-</p>
-
-<p align="center">
-    <a href="https://www.npmjs.com/package/cordova-plugin-local-notification">
-        <img src="https://badge.fury.io/js/cordova-plugin-local-notification.svg" alt="npm version" />
-    </a>
-    <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=L3HKQCD9UA35A "Donate once-off to this project using Paypal"">
-        <img src="https://img.shields.io/badge/paypal-donate-yellow.svg" alt="PayPayl donate button" />
-    </a>
-    <a href="https://opensource.org/licenses/Apache-2.0">
-        <img src="https://img.shields.io/badge/License-Apache%202.0-blue.svg" alt="License" />
-    </a>
-</p>
-
-<br>
-
+# cordova-plugin-local-notifications
 > A notification is a message you display to the user outside of your app's normal UI. When you tell the system to issue a notification, it first appears as an icon in the notification area. To see the details of the notification, the user opens the notification drawer. Both the notification area and the notification drawer are system-controlled areas that the user can view at any time.
 
 <br>
@@ -44,22 +22,20 @@
 
 ### Supported platforms
 
-- Android
-- iOS
-- Windows
+- Android 4.4+
+- iOS 10+
+- Windows 10
 
 <br>
 <br>
 
 ## Important Notice
 
-The _x_ branch has been merged into _master_ (30.10.2017)
+Read the installation section below to correctly install the latest version, since this repository is forked.
 
-See the _0.8_ branch if you cannot upgrade. Further development for `v0.9-beta` will happen here. The `0.9-dev` and `ios10` branches are obsolate and will be removed soon.
+__Known issues__
 
-Known issues 
-- Support for Android Orio is limited yet
-- v0.9 and v0.8 aren't compatible with each other (Wont fix)
+- None
 
 Please report bugs or missing features!
 
@@ -95,10 +71,11 @@ A notification does have a set of configurable properties. Not all of them are s
 
 | Property      | Property      | Property      | Property      | Property      | Property      | Property      | Property      |
 | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ | :------------ |
-| id            | data          | actionGroupId | summary       | led           | showWhen      | channel       | actions       |
+| id            | data          | timeoutAfter  | summary       | led           | clock         | channel       | channelDescription       |
 | text          | icon          | attachments   | smallIcon     | color         | defaults      | launch        | groupSummary  |
 | title         | silent        | progressBar   | sticky        | vibrate       | priority      | mediaSession  | foreground    |
 | sound         | trigger       | group         | autoClear     | lockscreen    | number        | badge         | wakeup        |
+| actions          | when       |
 
 For their default values see:
 
@@ -162,7 +139,7 @@ It is recommended to pre-define action groups rather then specifying them with e
 
 
 ```js
-cordova.plugins.notification.local.addActionGroup('yes-no', [
+cordova.plugins.notification.local.addActions('yes-no', [
     { id: 'yes', title: 'Yes' },
     { id: 'no',  title: 'No'  }
 ]);
@@ -174,7 +151,7 @@ Once you have defined an action group, you can reference it when scheduling noti
 cordova.plugins.notification.local.schedule({
     title: 'Justin Rhyss',
     text: 'Do you want to go see a movie tonight?',
-    actionGroupId: 'yes-no'
+    actions: 'yes-no'
 });
 ```
 
@@ -283,22 +260,22 @@ The properties depend on the trigger type. Not all of them are supported across 
 |              | every         | String  | `month`          | x       | x   | x       |
 |              | every         | String  | `quarter`        | x       |     | x       |
 |              | every         | String  | `year`           | x       | x   | x       |
-|              | before        | Date    |                  |
-|              | firstAt       | Date    |                  | x       | x   |
+|              | before        | Date    |                  | x       |     | x       |
+|              | firstAt       | Date    |                  | x       |     | x       |
 | Match        |
 |              | count         | Int     |                  | x       |     | x       |
 |              | every         | Object  | `minute`         | x       | x   | x       |
 |              | every         | Object  | `hour`           | x       | x   | x       |
 |              | every         | Object  | `day`            | x       | x   | x       |
-|              | every         | Object  | `weekday`        | x       | x   |
+|              | every         | Object  | `weekday`        | x       | x   | x       |
 |              | every         | Object  | `weekdayOrdinal` |         | x   |
-|              | every         | Object  | `week`           | x       | x   | x       |
-|              | every         | Object  | `weekOfMonth`    | x       | x   |
+|              | every         | Object  | `week`           |         | x   |
+|              | every         | Object  | `weekOfMonth`    | x       | x   | x       |
 |              | every         | Object  | `month`          | x       | x   | x       |
 |              | every         | Object  | `quarter`        |         | x   |
 |              | every         | Object  | `year`           | x       | x   | x       |
-|              | before        | Date    |                  |
-|              | after         | Date    |                  | x       | x   |
+|              | before        | Date    |                  | x       |     | x       |
+|              | after         | Date    |                  | x       |     | x       |
 | Location     |
 |              | center        | Array   | `[lat, long]`    |         | x   |
 |              | radius        | Int     |                  |         | x   |
@@ -326,7 +303,7 @@ cordova.plugins.notification.local.schedule({
 
 ## Patterns
 
-Split the text by line breaks if the message comes from a single person and just to long to show in a single line.
+Split the text by line breaks if the message comes from a single person and just too long to show in a single line.
 
 ```js
 cordova.plugins.notification.local.schedule({
@@ -432,6 +409,9 @@ To unsubscribe from events:
 cordova.plugins.notification.local.un(event, callback, scope);
 ```
 
+__Note:__ You have to provide the exact same callback to `cordova.plugins.notification.local.un` as you provided to `cordova.plugins.notification.local.on` to make unsubscribing work.  
+Hence you should define your callback as a separate function, not inline. If you want to use `this` inside of your callback, you also have to provide `this` as `scope` to `cordova.plugins.notification.local.on`.
+
 ### Custom
 
 The plugin also fires events specified by actions.
@@ -468,49 +448,78 @@ document.addEventListener('deviceready', function () {
 }, false);
 ```
 
+It might be possible that the underlying framework like __Ionic__ is not compatible with the launch process defined by cordova. With the result that the plugin fires the click event on app start before the app is able to listen for the events.
+
+Therefore its possible to fire the queued events manually by defining a global variable. 
+
+```js
+window.skipLocalNotificationReady = true
+```
+
+Once the app and Ionic is ready, you can fire the queued events manually.
+
+```js
+cordova.plugins.notification.local.fireQueuedEvents();
+```
+
+## Channels
+
+Since Android 8+ push notifications require a channel to work. By passing the `channel` parameter you can specify which channel the notification should use. You can't edit the channel after creating it, so be sure to pass the correct parameters within the first notification.
+
+When there is no channel specified in the notification, it (creates and) uses a default channel.
+
+Example of a notification using a specific channel:
+
+```js
+cordova.plugins.notification.local.schedule({
+    channel: 'myFirstChannel',
+    title: 'My first channel',
+    text: 'Thats pretty easy...',
+    foreground: true
+});
+```
+
+It's also possible to give the channel a custom description which will show up in the settings of the phone. You can declare the description by passing the paramter `channelDescription` to the notification.
+
+__First notification__
+
+As mentioned before, the first notification is the most important for your custom channels. Whenever you pass a new channel to a notification, the settings from that specific notification will be used to create the channel. All other notifications inside the same channel will inherit those settings.
+
+__Priorities__
+
+The priority of the channel will be set equivalent to the priority given to the notification. Below a summary of all priorities you can use and to which they'll change inside the channel.
+
+| Priority   | Native constant  | New channel constant  | Description                       |
+| :-------  | :---------------- | :--------------       | :-----------------------------    |
+| -2        | PRIORITY_MIN      | IMPORTANCE_MIN        | No sound and does not appear in the status bar |
+| -1        | PRIORITY_LOW      | IMPORTANCE_LOW        | No sound |
+| 0         | PRIORITY_DEFAULT  | IMPORTANCE_DEFAULT    | Makes a sound |
+| 1         | PRIORITY_HIGH     | IMPORTANCE_HIGH       | Makes a sound and appears as a heads-up notification |
+| 2         | PRIORITY_MAX      | IMPORTANCE_HIGH       | Makes a sound and appears as a heads-up notification |
+
+So don't forget to use the correct priority based on your settings, you won't get the desired result if you pass the wrong priority.
+
+The plugin will override your `priority` parameter if it detects a wrong configuration. For example when `foreground` is declared `true`, priority will always be `1` or higher. If `foreground` is declared `false`, priority will always be `0` or lower.
 
 ## Methods
 
-All methods work asynchron and accept callback methods.
+All methods work asynchronous and accept callback methods.
 See the sample app for how to use them.
 
-| Method   | Method            | Method          | Method         | Method      |
-| :------- | :---------------- | :-------------- | :------------- | :---------- |
-| schedule | cancelAll         | isTriggered     | get            | getDefaults |
-| update   | hasPermission     | getType         | getAll         | setDefaults |
-| clear    | requestPermission | getIds          | getScheduled   | on          |
-| clearAll | isPresent         | getScheduledIds | getTriggered   | un          |
-| cancel   | isScheduled       | getTriggeredIds | addActionGroup |
+| Method   | Method            | Method          | Method         | Method        | Method           |
+| :------- | :---------------- | :-------------- | :------------- | :------------ | :--------------- |
+| schedule | cancelAll         | isTriggered     | get            | removeActions | un               |
+| update   | hasPermission     | getType         | getAll         | hasActions    | fireQueuedEvents |
+| clear    | requestPermission | getIds          | getScheduled   | getDefaults   |
+| clearAll | isPresent         | getScheduledIds | getTriggered   | setDefaults   |
+| cancel   | isScheduled       | getTriggeredIds | addActions     | on            |
 
 
 ## Installation
 
-The plugin can be installed via [Cordova-CLI][CLI] and is publicly available on [NPM][npm].
+To install the latest version:
 
-Execute from the projects root folder:
-
-    $ cordova plugin add cordova-plugin-local-notification
-
-Or install a specific version:
-
-    $ cordova plugin add cordova-plugin-local-notification@VERSION
-
-Or install the latest head version:
-
-    $ cordova plugin add https://github.com/katzer/cordova-plugin-local-notifications.git
-
-Or install from local source:
-
-    $ cordova plugin add <path> --nofetch --nosave --link
-
-
-## Contributing
-
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+    $ cordova plugin add https://github.com/Steffaan/cordova-plugin-local-notifications.git
 
 
 ## License
@@ -521,8 +530,6 @@ Made with :yum: from Leipzig
 
 © 2013 [appPlant GmbH][appplant]
 
-
-[ticket_template]: https://github.com/katzer/cordova-plugin-local-notifications/issues/1188
 [cordova]: https://cordova.apache.org
 [CLI]: http://cordova.apache.org/docs/en/edge/guide_cli_index.md.html#The%20Command-line%20Interface
 [npm]: https://www.npmjs.com/package/cordova-plugin-local-notification

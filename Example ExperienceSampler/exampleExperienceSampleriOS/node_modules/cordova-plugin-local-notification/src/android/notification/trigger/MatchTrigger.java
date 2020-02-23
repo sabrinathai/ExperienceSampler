@@ -123,7 +123,7 @@ public class MatchTrigger extends IntervalTrigger {
     }
 
     /**
-     * Gets the first trigger date.
+     * Gets the date when to trigger the notification.
      *
      * @param base The date from where to calculate the trigger date.
      *
@@ -191,9 +191,14 @@ public class MatchTrigger extends IntervalTrigger {
                     else
                         return null;
                 case HOUR:
-                    addToDate(cal, now, Calendar.HOUR_OF_DAY, 0);
+                    if (cal.get(Calendar.MINUTE) < now.get(Calendar.MINUTE)) {
+                        addToDate(cal, now, Calendar.HOUR_OF_DAY, 1);
+                    } else {
+                        addToDate(cal, now, Calendar.HOUR_OF_DAY, 0);
+                    }
                     break;
                 case DAY:
+                case WEEK:
                     addToDate(cal, now, Calendar.DAY_OF_YEAR, 1);
                     break;
                 case MONTH:
@@ -213,6 +218,7 @@ public class MatchTrigger extends IntervalTrigger {
                     addToDate(cal, now, Calendar.HOUR_OF_DAY, 1);
                     break;
                 case DAY:
+                case WEEK:
                     addToDate(cal, now, Calendar.DAY_OF_YEAR, 1);
                     break;
                 case MONTH:
