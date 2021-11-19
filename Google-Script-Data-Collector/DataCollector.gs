@@ -5,7 +5,9 @@ function doPost(e) {
     var database = SpreadsheetApp.openById(""); //insert your database ID between the quotation marks
     var splicedDataset = SpreadsheetApp.openById(""); //insert your spliced database id between the quotation marks
     var compliance = SpreadsheetApp.openById(""); //insert your compliance database id between the quotation marks
-    var PID = e.parameters['participant_id'];
+    var participant_id = e.parameters['participant_id'][0];
+    var PIDJSON = JSON.stringify(participant_id); 
+    var PID = JSON.parse(PIDJSON);
     var sheet = database.getSheetByName(PID);
     var splicedSheet = splicedDataset.getSheetByName(PID);
     if (database.getSheetByName(PID) == null){
