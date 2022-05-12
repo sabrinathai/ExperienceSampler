@@ -1,6 +1,6 @@
 /*EXPERIENCESAMPLER LICENSE
 The MIT License (MIT)
-Copyright (c) 2014-2015 Sabrina Thai & Elizabeth Page-Gould
+Copyright (c) 2014-2022 Sabrina Thai & Elizabeth Page-Gould
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -15,7 +15,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE. */
+SOFTWARE.*/
 
 {
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -50,6 +50,9 @@ button {
   	width:300px;
   	height:auto;
   	margin-bottom:5px;
+  	margin-left:auto; 
+  	margin-right:auto; 
+  	display:block; 
 }
 
 textarea {
@@ -60,6 +63,9 @@ textarea {
   	border-style: solid;
   	width: 300px;
   	height: 100px;
+  	margin-left:auto; 
+  	margin-right:auto; 
+  	display:block; 
 }
 
 input[type=number]{
@@ -69,6 +75,9 @@ input[type=number]{
   	border-color: #008BB0;
   	border-style: solid;
   	width: 300px;
+  	margin-left:auto; 
+  	margin-right:auto; 
+  	display:block;
 }
 
 input[type=time]{
@@ -192,3 +201,4 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
