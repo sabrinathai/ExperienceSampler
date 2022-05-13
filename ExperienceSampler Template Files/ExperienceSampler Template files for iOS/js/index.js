@@ -1,7 +1,5 @@
 /*EXPERIENCESAMPLER LICENSE
-
 The MIT License (MIT)
-
 Copyright (c) 2014-2020 Sabrina Thai & Elizabeth Page-Gould
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -17,8 +15,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+SOFTWARE.*/
 
 /* activate localStorage */
 var localStore = window.localStorage;
@@ -135,19 +132,19 @@ var surveyQuestions = [
                        "variableName": "variableName",
                        "questionPrompt": "Exact question wording",
                        },
-		       /*8*/
-		       /* a "link" question allows participants to access a survey through an onine survey platform*/
-		       {
+                       /*8*/
+                       /* a "link" question allows participants to access a survey through an onine survey platform*/
+                       {
                        "type":"question type",
                        "variableName": "variableName",
                        "questionPrompt": “Please click <a href=‘insert your link here’ target=‘_blank’>HERE</a> to open your survey.”,
-                       },  	       
+                       },       
                        /*input additional questions*/
                        ];
 
 /*These are the messages that are displayed at the end of the questionnaire*/
 var lastPage = [
-				/*input your last-page message*/
+		/*input your last-page message*/
                 {
                 message: "End of questionnaire message"
                 },
@@ -198,9 +195,9 @@ var SNOOZEQ = 0;
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
 var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
-var textTmpl="<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
+var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><br /><button type='submit' value='Enter'>Enter</button></li>";
 var numberTmpl = "<li><input type='number' id='{{id}}'></input></li><br/><br/><li></li><li><button type='submit' value='Enter'>Enter</button></li>";
-var checkListTmpl="<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
+var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li><br />";
 var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>";
 var linkTmpl = "<li><button id='{{id}}' value = 'Next'>Click here AFTER finishing the survey in the link above</button></li>";
 var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
@@ -364,8 +361,8 @@ renderQuestion: function(question_index) {
 //                     alert("Please enter something.");
 //                 }
             });
-            break;
-        case 'number': //default to open-ended text
+            break;        
+	    case 'number': //default to open-ended text
         	question.buttons = Mustache.render(numberTmpl, {id: question.variableName+"1"});
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
         	$("#question ul li button").click(function(){
@@ -378,7 +375,8 @@ renderQuestion: function(question_index) {
                     alert("Please enter a number.");
                 }
             });
-            break;  		    
+            break; 
+		    
         case 'datePicker':
         	question.buttons = Mustache.render(datePickerTmpl, {id: question.variableName+"1"});
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
@@ -440,7 +438,7 @@ renderLastPage: function(pageData, question_index) {
     else {
     	var datestamp = new Date();
     	var year = datestamp.getFullYear(), month = datestamp.getMonth(), day=datestamp.getDate(), hours=datestamp.getHours(), minutes=datestamp.getMinutes(), seconds=datestamp.getSeconds(), milliseconds=datestamp.getMilliseconds();
-    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds + "_" + milliseconds] = 1;	
+    	localStore[uniqueKey + '.' + "completed" + "_" + "completedSurvey"  + "_" + year + "_" + month + "_" + day + "_" + hours + "_" + minutes + "_" + seconds  + "_" + milliseconds] = 1;	
     	app.saveDataLastPage();
     }
 },
@@ -544,8 +542,8 @@ recordResponse: function(button, count, type) {
 //		//then display the default end of survey message, and then record which notifications have been scheduled.
 //		//You will test local notifications in Stage 4 of customizing the app
 //		********IF YOU HAVE NO QUESTION LOGIC BUT HAVE SCHEDULED NOTIFICATIONS, YOU NEED TO UNCOMMENT THE FOLLOWING LINE
-//		TO EXECUTE THE scheduleNotifs() FUNCTION********
-//     		if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduledNotifs();}
+//		TO EXECUTE THE scheduleNotifs() FUNCTION********	
+//     if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduleNotifs();}
 //     //Identify the next question to populate the view
 //		//the next statement is about the snooze function
 // 		//This statement says that if the participant says they are currently unable to complete the questionnaire now,
@@ -611,7 +609,7 @@ sampleParticipant: function() {
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveDataLastPage:function() {
 // 	var storage = JSON.stringify(localStore);
-// 	var storage_save=JSON.parse(storage);
+// 	var storage_save=JSON.parse(storage);	
 //     $.ajax({
 //            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
@@ -623,7 +621,7 @@ saveDataLastPage:function() {
 //            localStore.participant_id = pid;
 //            localStore.snoozed = snoozed;
 // 		localStore.uniqueKey = uniqueKey;
-// 		localStore.pause_time = pause_time;
+// 		localStore.pause_time=pause_time;
 //            $("#question").html("<h3>Your responses have been recorded. Thank you for completing this survey.</h3>");
 //            },
 
@@ -638,18 +636,17 @@ saveDataLastPage:function() {
 //uncomment this function to test data saving function (Stage 2 of Customization)
 saveData:function() {
 // 	var storage = JSON.stringify(localStore);
-// 	var storage_save=JSON.parse(storage);	
+// 	var storage_save=JSON.parse(storage);
 //     $.ajax({
 //            type: 'post',
 //            url: 'server url (i.e., url for where to send the data)',
 //            data: storage_save,
 //            crossDomain: true,
 //            success: function (result) {
-//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey, pause_time=localStore.pause_time;
+//            var pid = localStore.participant_id, snoozed = localStore.snoozed, uniqueKey = localStore.uniqueKey;
 //            localStore.participant_id = pid;
 //            localStore.snoozed = snoozed;
-// 		localStore.uniqueKey = uniqueKey;
-// 		localStore.pause_time = pause_time;
+// 			  localStore.uniqueKey = uniqueKey;
 //            },
 //            error: function (request, error) {console.log(error);}
 //            });
@@ -661,8 +658,6 @@ saveData:function() {
 //(i.e., not customized to their schedule)
 scheduleNotifs:function(){
 //	//Section 1 - Declaring necessary variables
-// 	//Declare an empty array to hold all your notifications
-// 	var notifs=[];
 //	//need an interval variable, 
 //	var interval;
 // 	//a variable for the notification id
@@ -679,9 +674,11 @@ scheduleNotifs:function(){
 //	//in this example, we will set it to 8PM
 //	var startDate = new Date();
 // 	var startDay = startDate.getDate();
-//	var startTime = startDate.setDate((startDay+1), 20,0,0,0);
-//	//Now calculate the amount of time between installation time and the first signal
-//	nextDiaryLag = parseInt(startTime) - parseInt(now);
+// 	var startTime = startDate.setDate(startDay+1);
+// 	// then set the time of your first survey in this line. 0 = midnight; 20 = 8 PM
+// 	var startTimeHours = new Date(startTime).setHours(20, 0 , 0, 0);
+// 	//Now calculate the amount of time between installation time and the first signal
+// 	nextDiaryLag = parseInt(startTimeHours) - parseInt(now);
 
 //	//Section 2 to 5 go inside the for loop
 //	// Set X to the length of your experience sampling period (i.e., how many days you will 
@@ -701,21 +698,18 @@ scheduleNotifs:function(){
 
 // 	//Section 4 - Scheduling the notification
 // 	//Now put all these properties into the scheduling function of the plugin
-// 	notifs.push({id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Survey'});
+// 	cordova.plugins.notification.local.schedule({icon: 'ic_launcher', id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Survey'});
 
 // 	//Section 5 - Recording notifications
 // 	//Now you want to record your notifications to make sure that they have been scheduled
 // 	//You can also calculate response latencies if you with these values later if you want
 //	localStore['notification_' + a] = localStore.participant_id + "_" + a + "_" + date1; 
 // }
-//     cordova.plugins.notification.local.schedule(notifs);
 },
 
 // This code is for signal-contingent designs with varying time intervals between notifications
 // scheduleNotifs:function() {
 //		//Section 1 - Declaring necessary variables
-// 		//Declare an empty array to hold all your notifications
-// 		var notifs=[];
 // 		//Declares the number of intervals between the notifications for each day (i.e., if beeping participants 6 times, declare 6 intervals)
 //     var interval1, interval2, interval3, interval4, interval5, interval6;
 
@@ -838,13 +832,14 @@ scheduleNotifs:function(){
 //         date6 = new Date(now + interval6);
 
 //         
-// 			//This part of the code schedules the notifications. It pushes all the properties into the notif array 
-//         	notifs.push({id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-//         	notifs.push({id: b, at: date2, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-//         	notifs.push({id: c, at: date3, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-//         	notifs.push({id: d, at: date4, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-//         	notifs.push({id: e, at: date5, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
-//         	notifs.push({id: f, at: date6, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'});
+// 			//This part of the code schedules the notifications
+//         	cordova.plugins.notification.local.schedule([
+//         		{icon: 'ic_launcher', id: a, at: date1, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'}, 
+//         		{icon: 'ic_launcher', id: b, at: date2, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//         		{icon: 'ic_launcher', id: c, at: date3, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//         		{icon: 'ic_launcher', id: d, at: date4, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//         		{icon: 'ic_launcher', id: e, at: date5, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'},
+//         		{icon: 'ic_launcher', id: f, at: date6, text: 'Time for your next Diary Survey!', title: 'Diary Surveys'}]);
         		
 // 			//This part of the code records when the notifications are scheduled for and sends it to the server
 //         	localStore['notification_' + i + '_1'] = localStore.participant_id + "_" + a + "_" + date1;
@@ -854,7 +849,6 @@ scheduleNotifs:function(){
 //         	localStore['notification_' + i + '_5'] = localStore.participant_id + "_" + e + "_" + date5;
 //         	localStore['notification_' + i + '_6'] = localStore.participant_id + "_" + f + "_" + date6;
 //     }
-//     cordova.plugins.notification.local.schedule(notifs);
 // },
 
 //Stage 4 of Customization
@@ -865,6 +859,7 @@ snoozeNotif:function() {
 //     var now = new Date().getTime(), snoozeDate = new Date(now + X*1000);
 //     var id = '99';
 //     cordova.plugins.notification.local.schedule({
+//                                          icon: 'ic_launcher',
 //                                          id: id,
 //                                          title: 'Title of message',
 //                                          text: 'Snooze message',
@@ -880,7 +875,7 @@ validateResponse: function(data){
         } else { 
         	return true;
         }
-    },
+    }, 
 validateNumber: function(data){
         var num = data.val();
 //         console.log(text);
