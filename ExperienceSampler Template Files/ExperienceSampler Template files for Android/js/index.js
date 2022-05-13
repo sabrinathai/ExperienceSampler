@@ -132,9 +132,9 @@ var surveyQuestions = [
                        "variableName": "variableName",
                        "questionPrompt": "Exact question wording",
                        },
-			/*8*/
-			/* a "link" question allows participants to access a survey through an onine survey platform*/
-			{
+                       /*8*/
+                       /* a "link" question allows participants to access a survey through an onine survey platform*/
+                       {
                        "type":"question type",
                        "variableName": "variableName",
                        "questionPrompt": “Please click <a href=‘insert your link here’ target=‘_blank’>HERE</a> to open your survey.”,
@@ -195,9 +195,9 @@ var SNOOZEQ = 0;
 var questionTmpl = "<p>{{{questionText}}}</p><ul>{{{buttons}}}</ul>";
 var questionTextTmpl = "{{{questionPrompt}}}";
 var buttonTmpl = "<li><button id='{{id}}' value='{{value}}'>{{label}}</button></li>";
-var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><button type='submit' value='Enter'>Enter</button></li>";
+var textTmpl = "<li><textarea cols=50 rows=5 id='{{id}}'></textarea></li><li><br /><button type='submit' value='Enter'>Enter</button></li>";
 var numberTmpl = "<li><input type='number' id='{{id}}'></input></li><br/><br/><li></li><li><button type='submit' value='Enter'>Enter</button></li>";
-var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li>";
+var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li><br />";
 var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>";
 var linkTmpl = "<li><button id='{{id}}' value = 'Next'>Click here AFTER finishing the survey in the link above</button></li>";
 var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
@@ -543,7 +543,7 @@ recordResponse: function(button, count, type) {
 //		//You will test local notifications in Stage 4 of customizing the app
 //		********IF YOU HAVE NO QUESTION LOGIC BUT HAVE SCHEDULED NOTIFICATIONS, YOU NEED TO UNCOMMENT THE FOLLOWING LINE
 //		TO EXECUTE THE scheduleNotifs() FUNCTION********	
-//     if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduledNotifs();}
+//     if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduleNotifs();}
 //     //Identify the next question to populate the view
 //		//the next statement is about the snooze function
 // 		//This statement says that if the participant says they are currently unable to complete the questionnaire now,
@@ -674,9 +674,11 @@ scheduleNotifs:function(){
 //	//in this example, we will set it to 8PM
 //	var startDate = new Date();
 // 	var startDay = startDate.getDate();
-//	var startTime = startDate.setDate((startDay+1), 20,0,0,0);
-//	//Now calculate the amount of time between installation time and the first signal
-//	nextDiaryLag = parseInt(startTime) - parseInt(now);
+// 	var startTime = startDate.setDate(startDay+1);
+// 	// then set the time of your first survey in this line. 0 = midnight; 20 = 8 PM
+// 	var startTimeHours = new Date(startTime).setHours(20, 0 , 0, 0);
+// 	//Now calculate the amount of time between installation time and the first signal
+// 	nextDiaryLag = parseInt(startTimeHours) - parseInt(now);
 
 //	//Section 2 to 5 go inside the for loop
 //	// Set X to the length of your experience sampling period (i.e., how many days you will 
@@ -897,3 +899,4 @@ validateTime: function(data){
 	}
 }  	
 };
+
