@@ -40,12 +40,3 @@ daily using our automated compliance checking program but not annoy participants
 sent successfully. We chose to only notify participants when they would naturally expect to receive such confirmation – when they 
 have completed the survey. If you choose not to notify participants, then you only need to implement the saveData function; however, 
 we would advise you to use the `saveDataLastPage` function during testing to ensure that your data is being sent and saved correctly. 
-
-## ExperienceSampler HTML file
-Once you have set up your server or your Google database, you will need to copy and paste the URL of your Google Data Collector Script into the `index.html` file in your ExperienceSampler file. This will let ExperienceSampler know that your 
-Data Collector has permission to access the data, and the Data Collector is not doing anything malicious. If you are using the Google 
-option, you will need to copy two URLs into the `index.html` file. This is the only change you have to make to the `index.html` file. 
-
-1. Open your `index.html` file in your `www` folder. You will see a line that contains Content-Security-Policy. 
-2. In this line, you will add the additional property of `connect-src`, followed by the URL of your data collector. 
-  * You will need the same URL that you copied and pasted into the `saveData` and `saveDataLastPage` functions. 
