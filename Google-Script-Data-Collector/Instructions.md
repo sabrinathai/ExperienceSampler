@@ -49,11 +49,3 @@ option, you will need to copy two URLs into the `index.html` file. This is the o
 1. Open your `index.html` file in your `www` folder. You will see a line that contains Content-Security-Policy. 
 2. In this line, you will add the additional property of `connect-src`, followed by the URL of your data collector. 
   * You will need the same URL that you copied and pasted into the `saveData` and `saveDataLastPage` functions. 
-3. After your Google data collector URL, you will need to type https://script.googleusercontent.com/macros/echo with a space separating the this URL and the URL of your Google Data Collector and a double quotation mark after echo. 
-
-Your entire `Content-Security-Policy` will look like this  
-
-`<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 
-'unsafe-eval' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *; 
-connect-src https://script.google.com/macros/s/AKfycbzzbp0437BkTqx95W9THF9JhWcydzn-K-FJTbwIHF23-S0JbDXG/exec 
-https://script.googleusercontent.com/macros/echo">`.  
