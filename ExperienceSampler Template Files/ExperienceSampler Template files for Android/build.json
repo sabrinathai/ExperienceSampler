@@ -1,0 +1,12 @@
+{
+  "android": {
+    "release": {
+      "keystore": "/Users/sabrinathai/Documents/Experience Sampling Workshops/APS 2022 Workshop/Scripts/Demo Apps/demoApp/demoapp.keystore",
+      "storePassword": "demoApp",
+      "alias": "demoApp",
+      "password" : "demoApp",
+      "keystoreType": "", 
+      "packageType": "apk"
+    }
+  }
+}
