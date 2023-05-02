@@ -1,6 +1,6 @@
 /*EXPERIENCESAMPLER LICENSE
 The MIT License (MIT)
-Copyright (c) 2014-2020 Sabrina Thai & Elizabeth Page-Gould
+Copyright (c) 2014-2023 Sabrina Thai & Elizabeth Page-Gould
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -200,7 +200,7 @@ var numberTmpl = "<li><input type='number' id='{{id}}'></input></li><br/><br/><l
 var checkListTmpl =  "<li><input type='checkbox' id='{{id}}' value='{{value}}'>{{label}}</input></li><br />";
 var instructionTmpl = "<li><button id='{{id}}' value = 'Next'>Next</button></li>";
 var linkTmpl = "<li><button id='{{id}}' value = 'Next'>Click here AFTER finishing the survey in the link above</button></li>";
-var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>50</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
+var sliderTmpl = "<li><input type='range' min='{{min}}' max='{{max}}' value='{{value}}' orient=vertical id='{{id}}' oninput='outputUpdate(value)'></input><output for='{{id}}' id='slider'>{{value}}</output><script>function outputUpdate(slidervalue){document.querySelector('#slider').value=slidervalue;}</script></li><li><button type='submit' value='Enter'>Enter</button></li>";
 var datePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY" data-template="D MMM YYYY" name="date"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
 var dateAndTimePickerTmpl = '<li><input id="{{id}}" data-format="DD-MM-YYYY-HH-mm" data-template="D MMM YYYY  HH:mm" name="datetime24"><br /><br /></li><li><button type="submit" value="Enter">Enter</button></li><script>$(function(){$("input").combodate({firstItem: "name",minYear:2015, maxYear:2016});});</script>';
 var timePickerTmpl = "<li><input id ='{{id}}' type='time'></input><br /><br /></li><li><button type='submit' value='Enter'>Enter</button></li>";
@@ -319,7 +319,12 @@ renderQuestion: function(question_index) {
             });
             break;
         case 'slider':
-        	question.buttons = Mustache.render(sliderTmpl, {id: question.variableName+"1"}, {min: question.minResponse}, {max: question.maxResponse}, {value: (question.maxResponse)/2});
+        	question.buttons = Mustache.render(sliderTmpl, {
+								id: question.variableName+"1", 
+								min: question.minResponse, 
+								max: question.maxResponse, 
+								value: question.minResponse
+								});
         	$("#question").html(Mustache.render(questionTmpl, question)).fadeIn(400);
         	var slider = [];
         	$("#question ul li button").click(function(){
@@ -496,6 +501,10 @@ recordResponse: function(button, count, type) {
 //     	response = button.split(/,(.+)/)[1];
 //         currentQuestion = button.split(",",1);
 //     }
+//     else if (type == 'link') {
+//     	response = button.split(/,(.+)/)[1];
+//         currentQuestion = button.split(",",1);
+//     }		
 //     //Record value of clicked button
 //     else if (type == 'mult1') {
 //         response = button.value;
