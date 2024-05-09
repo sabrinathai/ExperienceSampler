@@ -20,6 +20,9 @@ SOFTWARE.*/
 /* activate localStorage */
 var localStore = window.localStorage;
 
+/* initialize notifications permission request (for Android API 33+) */ 
+var permissions = cordova.plugins.permissions;
+
 /* surveyQuestion Model (This time, written in "JSON" format to interface more cleanly with Mustache) */
 /* This is used to input the questions you would like to ask in your experience sampling questionnaire*/
 var surveyQuestions = [
@@ -151,36 +154,107 @@ var lastPage = [
                 /*input snooze last-page message*/
                 {
                 message: "Snooze message"
-                }
-                ];
+                },
+		// message indicating that notification did not work on device
+		{
+                "message": "Thank you for your interest in our study. Unfortunately, our app is incompatible with your phone, so you CANNOT participate in our study. We apologize for the inconvenience. "
+                },
+		// message indicating that the notification worked and app was successfully installed and the study starts the next day
+                {
+                "message": "<br>The study will start tomorrow. Please close the app completely to ensure you receive your notifications tomorrow. <br><br>(Swipe the App up to close completely). "
+                }, 
+		];
 
 /*Questions to set up participant notifications so that notifications are customized to participant's schedule*/                
 var participantSetup = [
                         {
-						"type":"text",
-						"variableName": "participant_id",
-						"questionPrompt": "Please enter your participant ID:"
+			"type":"text",
+			"variableName": "participant_id",
+			"questionPrompt": "Please enter your participant ID:"
                         },
-						{
-						"type":"timePicker",
-						"variableName": "weekdayWakeTime",
-						"questionPrompt": "What time do you normally wake up on weekdays?"
+			// -6
+                        // record the operating system so you know which operating system has bugs
+                        {
+                        "type":"mult1",
+                       	"variableName":"osType",
+                       	"questionPrompt":"What type of device do you have?",
+                       	"minResponse":0,
+                       	"maxResponse":1,
+                       	"labels": [
+                       		{"label":"iPhone or Other Apple Device"},
+                       		{"label":"Android Phone or Android Device"}
+                       	]
                         },
-						{
-						"type":"timePicker",
-						"variableName": "weekdaySleepTime",
-						"questionPrompt": "What time do you normally sleep on weekdays?"
-                        },                        
-						{
-						"type":"timePicker",
-						"variableName": "weekendWakeTime",
-						"questionPrompt": "What time do you normally wake up on weekends?"
+                        // -5
+                        // for android, we need an extra setup question that will request permission to send notifications
+                        // you do not need this for the ios version
+                        {
+                        "type":"mult1",
+			"variableName": "requestNotifPerm",
+			"questionPrompt": "Next, we will request permission to send notifications to you. <br><br>Please click the button below to receive a <b>request to allow notifications</b>.",
+			"minResponse": 1,
+                       	"maxResponse": 1,
+                       	"labels": [
+                                {"label": "Request permission for notifications now"},
+                        ]
                         },
-						{
-						"type":"timePicker",
-						"variableName": "weekendSleepTime",
-						"questionPrompt": "What time do you normally eat go to sleep on weekends?"
-                        }              
+                        // -4
+                        {
+                        "type":"mult1",
+			"variableName": "testNotification",
+			"questionPrompt": "Next, we will test whether the notification system is working on your phone. Please click the button below to test the notification system. You will receive a notification in ten seconds. If you see the notification, do <b>NOT</b> click on it. Clicking on it will interrupt your app setup. ",
+			"minResponse": 1,
+                       	"maxResponse": 1,
+                       	"labels": [
+                                {"label": "Test notification now"},
+                        ]
+                        },
+                        // -3
+                        {
+                        "type":"mult1",
+                       	"variableName":"notificationWorked",
+                       	"questionPrompt":"Did you receive the test notification?",
+                       	"minResponse":0,
+                       	"maxResponse":1,
+                       	"labels": [
+                       		{"label":"No"},
+                       		{"label":"Yes"}
+                       	]
+                        },
+                       // -2
+                        {
+                        "type":"instructions",
+                       	"variableName":"notificationFail",
+                       	"questionPrompt":"It looks like your notification system is not working. You are ineligible to participate in our study. ",
+                        },
+                        // -1
+                        {
+                        "type":"instructions",
+                       	"variableName":"notificationSuccess",
+                       	"questionPrompt":"Yay! Your notification system is turned on. Please wait while we schedule your notfications for the study. ",
+                        }            
+			// questions to customize notifications to participant's schedule
+			// uncomment and adjust if you want to do this
+			// {
+			// "type":"timePicker",
+			// "variableName": "weekdayWakeTime",
+			// "questionPrompt": "What time do you normally wake up on weekdays?"
+   //                      },
+			// {
+			// "type":"timePicker",
+			// "variableName": "weekdaySleepTime",
+			// "questionPrompt": "What time do you normally sleep on weekdays?"
+   //                      },                        
+			// {
+			// "type":"timePicker",
+			// "variableName": "weekendWakeTime",
+			// "questionPrompt": "What time do you normally wake up on weekends?"
+   //                      },
+			// {
+			// "type":"timePicker",
+			// "variableName": "weekendSleepTime",
+			// "questionPrompt": "What time do you normally eat go to sleep on weekends?"
+   //                      }              
                     ];
 
 /*Populate the view with data from surveyQuestion model*/
@@ -552,8 +626,45 @@ recordResponse: function(button, count, type) {
 //		//You will test local notifications in Stage 4 of customizing the app
 //		********IF YOU HAVE NO QUESTION LOGIC BUT HAVE SCHEDULED NOTIFICATIONS, YOU NEED TO UNCOMMENT THE FOLLOWING LINE
 //		TO EXECUTE THE scheduleNotifs() FUNCTION********	
-//     if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduleNotifs();}
-//     //Identify the next question to populate the view
+// Logic to test notification and ask for permission to fire notifications for app
+// If you add more questions to the participant setup, you may need to adjust the logic below and the question numbers
+ //    if (count == -6 && response == 1){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-5);});}
+ //    else if (count == -6 && response == 0){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-4);});}
+ //    else if (count == -5){
+	// 	console.log("permissions is " + permissions); 
+	// 	function permerrorCallback() {
+ //                    console.warn('You have not granted this app permission to receive notifications. Please navigate to Settings > Notifications > App notifications and toggle notifications for this app.');
+ //                };
+	// 	function permsuccessCallback( status ) {
+	// 		if( !status.hasPermission ) permerrorCallback();
+	// 		};
+	// 		permissions.requestPermission(permissions.POST_NOTIFICATIONS, permsuccessCallback, permerrorCallback);
+	// 		// this function will request for permission
+	// 		cordova.plugins.notification.local.setDummyNotifications();
+	// 		// this function should turn off the battery optimization feature in Android, but should also make participants aware of this as well
+	// 		// in case this function fails
+	// 		cordova.plugins.notification.local.isIgnoringBatteryOptimizations(function (granted) { console.log("i'm ignoring battery optimizations") }); 
+	// 		$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-4);});
+	// 		}
+ //    else if (count == -4){
+ //    	// this line schedules the notification; 
+ //    	// it should fire in 2 seconds
+ //    	// if you want to change the amount of time, go to the testNotif function at the bottom of this script and change the number that comes 
+ //    	// after "in: "
+ //    	app.testNotif(); 
+ //    	// after it schedules the notification, we want it to go to the next question in the setup 
+ //    	// this question asks participants if they saw the notification
+ //    	$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-3);});
+ //    }
+	// // did the notification work? Yes it did? go to notification success page
+ //    else if (count == -3 && response == 1){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-1);});}
+ //    else if (count == -1){app.scheduleNotifs();app.renderLastPage(lastPage[0], count);app.scheduleNotifs();}
+
+	// // did the notification work? No it didn't? go to test notif failed
+ //    else if (count == -3 && response == 0){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-2);});}
+ //    // logic to loop through courses
+ //    else if (count == -2){app.renderLastPage(lastPage[2], count);}
+	//     //Identify the next question to populate the view
 //		//the next statement is about the snooze function
 // 		//This statement says that if the participant says they are currently unable to complete the questionnaire now,
 // 		//the app will display the snooze end of survey message. You can customize the snooze function in Stage 4 of Customization 
@@ -906,5 +1017,16 @@ validateTime: function(data){
 	else {
 		return true
 	}
-}  	
+},
+testNotif:function() {
+    var id = '9999';
+    cordova.plugins.notification.local.schedule({
+                                         icon: 'ic_launcher',
+                                         id: id,
+                                         title: 'Daily Surveys',
+                                         text: 'Your test notification has fired!',
+                                         trigger: {in: 2, unit: 'second'},
+                                         foreground: true, 
+                                         });
+},   		
 };
