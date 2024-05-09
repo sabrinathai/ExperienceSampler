@@ -168,9 +168,9 @@ var lastPage = [
 /*Questions to set up participant notifications so that notifications are customized to participant's schedule*/                
 var participantSetup = [
                         {
-						"type":"text",
-						"variableName": "participant_id",
-						"questionPrompt": "Please enter your participant ID:"
+			"type":"text",
+			"variableName": "participant_id",
+			"questionPrompt": "Please enter your participant ID:"
                         },
 			// -6
                         // record the operating system so you know which operating system has bugs
@@ -190,9 +190,9 @@ var participantSetup = [
                         // you do not need this for the ios version
                         {
                         "type":"mult1",
-						"variableName": "requestNotifPerm",
-						"questionPrompt": "Next, we will request permission to send notifications to you. <br><br>Please click the button below to receive a <b>request to allow notifications</b>.",
-						"minResponse": 1,
+			"variableName": "requestNotifPerm",
+			"questionPrompt": "Next, we will request permission to send notifications to you. <br><br>Please click the button below to receive a <b>request to allow notifications</b>.",
+			"minResponse": 1,
                        	"maxResponse": 1,
                        	"labels": [
                                 {"label": "Request permission for notifications now"},
@@ -201,9 +201,9 @@ var participantSetup = [
                         // -4
                         {
                         "type":"mult1",
-						"variableName": "testNotification",
-						"questionPrompt": "Next, we will test whether the notification system is working on your phone. Please click the button below to test the notification system. You will receive a notification in ten seconds. If you see the notification, do <b>NOT</b> click on it. Clicking on it will interrupt your app setup. ",
-						"minResponse": 1,
+			"variableName": "testNotification",
+			"questionPrompt": "Next, we will test whether the notification system is working on your phone. Please click the button below to test the notification system. You will receive a notification in ten seconds. If you see the notification, do <b>NOT</b> click on it. Clicking on it will interrupt your app setup. ",
+			"minResponse": 1,
                        	"maxResponse": 1,
                        	"labels": [
                                 {"label": "Test notification now"},
@@ -628,7 +628,11 @@ recordResponse: function(button, count, type) {
     	// Logic to test notification and ask for permission to fire notifications for app
 	// the question numbers and logic will change if you ask additional customization questions
 	// make sure to update this logic if you add more questions
- //    if (count == -5){
+	// if it is an android, go to the extra permission question
+	     // if (count == -6 && response == 1){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-5);});}
+	// if is it an ios, skip the extra question
+	     // else if (count == -6 && response == 0){$("#question").fadeOut(400, function () {$("#question").html("");app.renderQuestion(-4);});}
+	//    else if (count == -5){
 	// 	console.log("permissions is " + permissions); 
 	// 	function permerrorCallback() {
  //                    console.warn('You have not granted this app permission to receive notifications. Please navigate to Settings > Notifications > App notifications and toggle notifications for this app.');
