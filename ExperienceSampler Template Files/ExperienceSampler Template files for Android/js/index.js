@@ -154,7 +154,15 @@ var lastPage = [
                 /*input snooze last-page message*/
                 {
                 message: "Snooze message"
-                }
+                },
+		// message indicating that notifications are not working on participant's device
+		{
+                "message": "Thank you for your interest in our study. Unfortunately, our app is incompatible with your phone, so you CANNOT participate in our study. We apologize for the inconvenience. "
+                },
+		// message indicating app was successfully installed
+                {
+                "message": "<br>The study will start tomorrow. Please close the app completely to ensure you receive your notifications tomorrow. <br><br>(Swipe the App up to close completely). "
+                }, 
                 ];
 
 /*Questions to set up participant notifications so that notifications are customized to participant's schedule*/                
