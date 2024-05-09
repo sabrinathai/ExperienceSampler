@@ -1,57 +1,62 @@
 function doPost(e) {
   var lock = LockService.getPublicLock();
-  lock.waitLock(30000);
+  lock.waitLock(180000);
+  
   try {
-    var database = SpreadsheetApp.openById(""); //insert your database ID between the quotation marks
-    var splicedDataset = SpreadsheetApp.openById(""); //insert your spliced database id between the quotation marks
-    var compliance = SpreadsheetApp.openById(""); //insert your compliance database id between the quotation marks
+    var database = SpreadsheetApp.openById(""); //replace this string of numbers & letters with your database ID
+    var splicedDataset = SpreadsheetApp.openById(""); //replace this string of numbers & letters with your spliced database id // https://docs.google.com/spreadsheets/d/1b_flXWXDJnVyWp2eb5JgyPzRZbPDKduFF4dbY75cHsI/edit#gid=0
+    var compliance = SpreadsheetApp.openById("");
+    
     var participant_id = e.parameters['participant_id'][0];
     var PIDJSON = JSON.stringify(participant_id); 
     var PID = JSON.parse(PIDJSON);
+
     var sheet = database.getSheetByName(PID);
     var splicedSheet = splicedDataset.getSheetByName(PID);
-    if (database.getSheetByName(PID) == null){
-    //inserts sheet at the end
-      var sheetIndex = database.getNumSheets()+1;
+    
+    if (!sheet) {
+      var sheetIndex = database.getNumSheets() + 1;
       sheet = database.insertSheet(PID, sheetIndex).setName(PID);
       splicedSheet = splicedDataset.insertSheet(PID, sheetIndex).setName(PID);
+      // populate the complicant sheet with relevant data
+      // Code to populate compliance sheet...
       var complianceSheet = compliance.getSheets()[0];
       var complianceNewRow = complianceSheet.getLastRow()+1;
       var today = new Date();
       complianceSheet.getRange(complianceNewRow,1).setValue(PID);
       complianceSheet.getRange(complianceNewRow,4).setValue(today);
+      var startYear = today.getFullYear(), startMonth = today.getMonth();
+      var startDate = today.getDate() + 1; 
+      var startDay = new Date(startYear, startMonth, startDate);
+      complianceSheet.getRange(complianceNewRow,5).setValue(startDay);
       var endYear = today.getFullYear(), endMonth = today.getMonth();
-      //the number of days you add is equal to the number of days you collect data. If you choose to use the compliance checker, add 2 to the number of 
-      //data colsection days
-      var endDate = today.getDate() + 9;
+      var endDate = today.getDate() + 16;
       var daysAfterDataCollection = new Date(endYear, endMonth, endDate);
-      complianceSheet.getRange(complianceNewRow,5).setValue(daysAfterDataCollection);
-      //this code will delete the extra columns in each sheet so can write more data to each spreadsheet
+      complianceSheet.getRange(complianceNewRow,6).setValue(daysAfterDataCollection);
+       //this code will delete the extra columns in each sheet so can write more data to each spreadsheet
       //Each spreadsheet can only have a maximum of 2 million cells
       sheet.deleteColumns(3, 24);
       splicedSheet.deleteColumns(6, 21);
     } 
-    var newRow = sheet.getLastRow()+1;
-    for (var key = 0; key < Object.keys(e.parameters).length; key++){ 
-      sheet.getRange(newRow, 1).setValue(Object.keys(e.parameters)[key]);
-      splicedSheet.getRange(newRow, 1).setValue(Object.keys(e.parameters)[key]);
-      sheet.getRange(newRow, 2).setValue(e.parameters[Object.keys(e.parameters)[key]]);
-      splicedSheet.getRange(newRow, 4).setValue(e.parameters[Object.keys(e.parameters)[key]]);
-      newRow = newRow + 1;
+    var dataKeys = Object.keys(e.parameters);
+    var numRows = dataKeys.length;
+    var newData = new Array(numRows);
+    for (var key = 0; key < numRows; key++) {
+      newData[key] = [dataKeys[key], e.parameters[dataKeys[key]]];
     }
-    //create a log of what is going on
-    //var doc = DocumentApp.openById("1bGnqx4Iw8yoXSn8z6hSfiuxFQE9Rq16rHYUfr1_5fpM");
-    //var body = doc.getBody();
-    //body.appendParagraph(Logger.getLog());
-    //return HtmlService.createHtmlOutput(Logger.getLog());
-    return ContentService.createTextOutput(JSON.stringify({"result":"success", "row": nextRow})).setMimeType(ContentService.MimeType.JSON);
-  } catch(e) {
-    //if error return this
-    return ContentService.createTextOutput(JSON.stringify({"result":"error", "error": e})).setMimeType(ContentService.MimeType.JSON);
+    
+    var newRowIndex = sheet.getLastRow() + 1;
+    sheet.getRange(newRowIndex, 1, numRows, 2).setValues(newData);
+    splicedSheet.getRange(newRowIndex, 1, numRows, 2).setValues(newData);
+    
+    // Logging to a separate sheet in Google Sheets...
+    
+    return ContentService.createTextOutput(JSON.stringify({"result":"success", "row": newRowIndex}));
+  } catch (e) {
+    // Logging error details...
+    
+    return ContentService.createTextOutput(JSON.stringify({"result":"error", "error": e}));
   } finally {
     lock.releaseLock();
   }
 }
-
-
-
