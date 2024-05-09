@@ -20,6 +20,9 @@ SOFTWARE.*/
 /* activate localStorage */
 var localStore = window.localStorage;
 
+/* initialize notifications permission request (for Android API 33+) */ 
+var permissions = cordova.plugins.permissions;
+
 /* surveyQuestion Model (This time, written in "JSON" format to interface more cleanly with Mustache) */
 /* This is used to input the questions you would like to ask in your experience sampling questionnaire*/
 var surveyQuestions = [
